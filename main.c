@@ -6,6 +6,9 @@
 void menuPrincipal();
 void refrescoPantalla();
 void esperaEnter();
+void opcionIncorrecta();
+bool menuSeleccionFuncion();
+bool menuSeleccionGradoPolinomio();
 
 int main(){
     while(true){
@@ -14,16 +17,13 @@ int main(){
         scanf("%d",&seleccion);
         switch (seleccion){
             case 1:
-
+                menuSeleccionFuncion();
             break;
             case 2:
                 return 0;
             break;
             default:
-                refrescoPantalla();
-                printf("OPCION NO VALIDA\n");
-                printf("PRESIONE ENTER PARA CONTINUAR");
-                esperaEnter();
+                opcionIncorrecta();
             break;
         }
     }
@@ -34,8 +34,8 @@ int main(){
 //DESCRIPCION METODOS
 void menuPrincipal(){
     refrescoPantalla();
-    printf("1. Crear funcion \n");
-    printf("2. Salir\n");
+    printf("1. CREAR FUNCION \n");
+    printf("2. SALIR\n");
 }
 void refrescoPantalla(){
     for (int a=0;a<50;a++){
@@ -45,4 +45,32 @@ void refrescoPantalla(){
 void esperaEnter(){
     while (getchar() != '\n' && getchar() != EOF);
     getchar();
+}
+void opcionIncorrecta(){
+    refrescoPantalla();
+    printf("OPCION NO VALIDA\n");
+    printf("PRESIONE ENTER PARA CONTINUAR");
+    esperaEnter();
+}
+bool menuSeleccionFuncion(){
+    while (true){
+        int seleccion;
+        refrescoPantalla();
+        printf("SELECCIONA EL TIPO DE FUNCION\n");
+        printf("1. POLINOMIO \n");
+        printf("2. REGRESAR AL MENU PRINCIPAL\n");
+        scanf("%d",&seleccion);
+        switch (seleccion){
+            case 1:
+
+            break;
+            case 2:
+            return false;
+            break;
+            default:
+            opcionIncorrecta();
+            break;
+        }
+    }
+    return false;
 }
