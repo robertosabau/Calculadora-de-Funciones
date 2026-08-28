@@ -1,4 +1,4 @@
-#ifndef FUNCION_N
+#ifndef FUNCION_H
 #define FUNCION_H
 
 typedef enum{
