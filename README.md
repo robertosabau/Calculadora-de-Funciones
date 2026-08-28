@@ -4,8 +4,8 @@ Este proyecto se trata de una simple calculadora donde puedes realizar diferente
 
 Los tipos de funciones que hay disponibles son:
 	1. Polinómicas:
-    1 Grado: aX + b.
-    2 Grado: aX^2 + bx +c.
+    1. Grado: aX + b.
+    2. Grado: aX^2 + bx +c.
 
 En cuanto a las operaciones hay las siguientes:
   1. Calcular valor X: Te permite calcular que valor dará la función creada en un valor especifico de X
