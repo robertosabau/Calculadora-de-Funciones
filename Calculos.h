@@ -3,5 +3,5 @@
 #include "funcion.h"
 
 double calculoValorX(double x,Funcion *funcion);
-
+double* calculoValorIgual0(Funcion *funcion);
 #endif

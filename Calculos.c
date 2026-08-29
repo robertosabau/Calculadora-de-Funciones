@@ -17,3 +17,30 @@ double calculoValorX(double x,Funcion *funcion){
     }
     return resultado;
 }
+
+double* calculoValorIgual0(Funcion *funcion){
+    switch (funcion->tipo){
+        case POLINOMIO:
+            switch (funcion->cantidadvalores)
+            {
+            case 2:
+                static double resultado;
+                resultado=-funcion->valores[1]/funcion->valores[0];
+                return &resultado;
+            break;
+            case 3:
+                if (funcion->valores[0]!=0){
+                    static double resultado2[2];
+                    resultado2[0]=(-funcion->valores[1]+sqrt(pow(2,funcion->valores[1])-4*funcion->valores[2]*funcion->valores[0]))/(2*funcion->valores[0]);
+                    resultado2[1]=(-funcion->valores[1]-sqrt(pow(2,funcion->valores[1])-4*funcion->valores[2]*funcion->valores[0]))/(2*funcion->valores[0]);
+                    return resultado2;
+                }
+                else{
+                    static double resultado;
+                    resultado=-funcion->valores[1]/funcion->valores[0];
+                    return &resultado;
+                }
+            break;
+        }
+    }
+}
