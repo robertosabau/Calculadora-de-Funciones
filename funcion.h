@@ -2,7 +2,12 @@
 #define FUNCION_H
 
 typedef enum{
-    POLINOMIO
+    POLINOMIO,
+    EXPONENCIAL,
+    LOGARITMO,
+    COSENO,
+    SENO,
+    TANGENTE
 } TipoFuncion;
 
 typedef struct{
