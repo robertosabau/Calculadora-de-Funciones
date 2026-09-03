@@ -15,6 +15,7 @@ bool menuSeleccionGradoPolinomio();
 void seleccionParametrosPolinomio(int grado,double *array);
 void dibujarFuncionPolinomica(int grado);
 bool menuFuncion(Funcion *funcion);
+bool menuParametroExponencial();
 void dibujarFuncion(Funcion *funcion);
 void dibujarFuncionPolinomica2(Funcion *funcion);
 double obtenerX();
@@ -59,6 +60,11 @@ bool menuSeleccionFuncion(){
                     return true;
                 }
             break;
+            case 2:
+                if(menuParametroExponencial()){
+                    return true;
+                }
+            break;
             case 0:
             return false;
             break;
@@ -67,6 +73,18 @@ bool menuSeleccionFuncion(){
             break;
         }
     }
+}
+bool menuParametroExponencial(){
+    refrescoPantalla();
+    double a[1];
+    printf("TU FUNCION: a^x\n");
+    printf("INTRODUCE PARAMETRO a: ");
+    scanf("%lf",&a[0]);
+    Funcion funcion;
+    funcion.cantidadvalores=1;
+    funcion.tipo=EXPONENCIAL;
+    funcion.valores=a;
+    return menuFuncion(&funcion);
 }
 bool menuSeleccionGradoPolinomio(){
     while (true){
@@ -160,7 +178,6 @@ bool menuFuncion(Funcion *funcion){
             case 2:
                 double *x2=calculoValorIgual0(funcion);
                 mostrarResultadoObtenerIgual0(x2,funcion);
-
             break;
             default:
                 opcionIncorrecta();
@@ -172,6 +189,9 @@ void dibujarFuncion(Funcion *funcion){
     switch (funcion->tipo){
         case POLINOMIO:
             dibujarFuncionPolinomica2(funcion);
+        break;
+        case EXPONENCIAL:
+            printf("TU FUNCION: %2lf^x\n",funcion->valores[0]);
         break;
     }
 }
@@ -217,7 +237,7 @@ void mostrarResultadoObtenerIgual0(double* x,Funcion *funcion){
         printf("PULSE ENTER PARA CONTINUAR");
     }
     else{
-        printf("NO EXISTE UN VALOR DONDE ES F(X)=0\n");
+        printf("NO EXISTE UN VALOR DONDE F(X)=0\n");
         printf("PULSE ENTER PARA CONTINUAR");
     }
     esperaEnter();

@@ -14,6 +14,9 @@ double calculoValorX(double x,Funcion *funcion){
                 break;
             }
         break;
+        case EXPONENCIAL:
+            resultado=pow(funcion->valores[0],x);
+        break;
     }
     return resultado;
 }
@@ -42,5 +45,10 @@ double* calculoValorIgual0(Funcion *funcion){
                 }
             break;
         }
+        case EXPONENCIAL:
+            static double resultado;
+            resultado=-INFINITY;
+            return &resultado;
+        break;
     }
 }
