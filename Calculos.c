@@ -17,6 +17,9 @@ double calculoValorX(double x,Funcion *funcion){
         case EXPONENCIAL:
             resultado=pow(funcion->valores[0],x);
         break;
+        case LOGARITMO:
+            resultado=log(x)/log(funcion->valores[0]);
+        break;
     }
     return resultado;
 }
@@ -49,6 +52,11 @@ double* calculoValorIgual0(Funcion *funcion){
             static double resultado;
             resultado=-INFINITY;
             return &resultado;
+        break;
+        case LOGARITMO:{
+            static double resultado;
+            resultado=1;
+            return &resultado;}
         break;
     }
 }

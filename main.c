@@ -6,19 +6,20 @@
 #include "Calculos.h"
 
 //DECLARACIONES METODOS
-void menuPrincipal();
-void refrescoPantalla();
-void esperaEnter();
-void opcionIncorrecta();
-bool menuSeleccionFuncion();
-bool menuSeleccionGradoPolinomio();
+void menuPrincipal(void);
+void refrescoPantalla(void);
+void esperaEnter(void);
+void opcionIncorrecta(void);
+bool menuSeleccionFuncion(void);
+bool menuSeleccionGradoPolinomio(void);
 void seleccionParametrosPolinomio(int grado,double *array);
 void dibujarFuncionPolinomica(int grado);
 bool menuFuncion(Funcion *funcion);
-bool menuParametroExponencial();
+bool menuParametroExponencial(void);
+bool menuParametroLogaritmo(void);
 void dibujarFuncion(Funcion *funcion);
 void dibujarFuncionPolinomica2(Funcion *funcion);
-double obtenerX();
+double obtenerX(void);
 void mostrarResultadoCalculoX(double x,double resultado);
 void mostrarResultadoObtenerIgual0(double *x,Funcion *funcion);
 
@@ -65,6 +66,11 @@ bool menuSeleccionFuncion(){
                     return true;
                 }
             break;
+            case 3:
+                if(menuParametroLogaritmo()){
+                    return true;
+                }
+            break;
             case 0:
             return false;
             break;
@@ -83,6 +89,29 @@ bool menuParametroExponencial(){
     Funcion funcion;
     funcion.cantidadvalores=1;
     funcion.tipo=EXPONENCIAL;
+    funcion.valores=a;
+    return menuFuncion(&funcion);
+}
+bool menuParametroLogaritmo(){
+    bool parametroCorrecto=false;
+    double a[1];
+    while(!parametroCorrecto){
+        refrescoPantalla();
+        printf("TU FUNCION: log_a(x)\n");
+        printf("INTRODUCE PARAMETRO a: ");
+        scanf("%lf",&a[0]);
+        if(a[0]>0&&a[0]!=1){
+            parametroCorrecto=true;
+        }
+        else{
+            refrescoPantalla();
+            printf("EL PARAMETRO NO ES CORRECTO");
+            esperaEnter();
+        }
+    }
+    Funcion funcion;
+    funcion.cantidadvalores=1;
+    funcion.tipo=LOGARITMO;
     funcion.valores=a;
     return menuFuncion(&funcion);
 }
@@ -193,6 +222,9 @@ void dibujarFuncion(Funcion *funcion){
         case EXPONENCIAL:
             printf("TU FUNCION: %2lf^x\n",funcion->valores[0]);
         break;
+        case LOGARITMO:
+            printf("TU FUNCION: log%2lf(x)\n",funcion->valores[0]);
+        break;
     }
 }
 void dibujarFuncionPolinomica2(Funcion *funcion){
@@ -232,6 +264,9 @@ void mostrarResultadoObtenerIgual0(double* x,Funcion *funcion){
                         printf("RESULTADO 2 = %2lf\n",x[1]);
                     break;
                 }
+            break;
+            case LOGARITMO:
+                printf("RESULTADO = %2lf\n",x[0]);
             break;
         }
         printf("PULSE ENTER PARA CONTINUAR");
