@@ -35,7 +35,8 @@ void refrescoPantalla(){
     }
 }
 void esperaEnter(){
-    while (getchar() != '\n' && getchar() != EOF);
+    int c;
+    while (c=getchar() != '\n' && c != EOF);
     getchar();
 }
 void opcionIncorrecta(){
@@ -282,7 +283,13 @@ int main(){
     while(true){
         int seleccion;
         menuPrincipal();
-        scanf("%d",&seleccion);
+        while (scanf("%d",&seleccion)!=1){
+            refrescoPantalla();
+            printf("TIENE QUE INTRODUCIR UN NUMERO ENTERO\n");
+            printf("PULSE ENTER PARA CONTINUAR");
+            esperaEnter();
+            menuPrincipal();
+        }
         switch (seleccion){
             case 1:
                 menuSeleccionFuncion();
