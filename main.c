@@ -55,7 +55,18 @@ bool menuSeleccionFuncion(){
         printf("3. LOGARITMO \n");
         printf("4. TRIGONOMETRICA \n");
         printf("0. REGRESAR AL MENU PRINCIPAL\n");
-        scanf("%d",&seleccion);
+        while (scanf("%d",&seleccion)!=1){
+            refrescoPantalla();
+            printf("TIENE QUE INTRODUCIR UN NUMERO ENTERO\n");
+            printf("PULSE ENTER PARA CONTINUAR");
+            esperaEnter();
+            printf("SELECCIONA EL TIPO DE FUNCION\n");
+            printf("1. POLINOMIO \n");
+            printf("2. EXPONENCIAL \n");
+            printf("3. LOGARITMO \n");
+            printf("4. TRIGONOMETRICA \n");
+            printf("0. REGRESAR AL MENU PRINCIPAL\n");
+        }
         switch (seleccion){
             case 1:
                 if (menuSeleccionGradoPolinomio()){
@@ -86,7 +97,14 @@ bool menuParametroExponencial(){
     double a[1];
     printf("TU FUNCION: a^x\n");
     printf("INTRODUCE PARAMETRO a: ");
-    scanf("%lf",&a[0]);
+    while (scanf("%lf",&a)!=1){
+            refrescoPantalla();
+            printf("TIENE QUE INTRODUCIR UN NUMERO ENTERO\n");
+            printf("PULSE ENTER PARA CONTINUAR");
+            esperaEnter();
+            printf("TU FUNCION: a^x\n");
+            printf("INTRODUCE PARAMETRO a: ");
+        }
     Funcion funcion;
     funcion.cantidadvalores=1;
     funcion.tipo=EXPONENCIAL;
