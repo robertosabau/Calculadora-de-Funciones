@@ -118,7 +118,14 @@ bool menuParametroLogaritmo(){
         refrescoPantalla();
         printf("TU FUNCION: log_a(x)\n");
         printf("INTRODUCE PARAMETRO a: ");
-        scanf("%lf",&a[0]);
+        while (scanf("%lf",&a)!=1){
+            refrescoPantalla();
+            printf("TIENE QUE INTRODUCIR UN NUMERO ENTERO\n");
+            printf("PULSE ENTER PARA CONTINUAR");
+            esperaEnter();
+            printf("TU FUNCION: log_a(x)\n");
+            printf("INTRODUCE PARAMETRO a: ");
+        }
         if(a[0]>0&&a[0]!=1){
             parametroCorrecto=true;
         }
@@ -181,16 +188,51 @@ void seleccionParametrosPolinomio(int grado,double *array){
     switch (grado){
         case 1:
             printf("INTRODUCE PARAMETRO a: ");
-            scanf("%lf",&array[0]);
+            while (scanf("%lf",&array[0])!=1){
+                refrescoPantalla();
+                printf("TIENE QUE INTRODUCIR UN NUMERO ENTERO\n");
+                printf("PULSE ENTER PARA CONTINUAR");
+                esperaEnter();
+                dibujarFuncionPolinomica(grado);
+                printf("INTRODUCE PARAMETRO a: ");
+            }
             printf("INTRODUCE PARAMETRO b: ");
-            scanf("%lf",&array[1]);
+            while (scanf("%lf",&array[1])!=1){
+                refrescoPantalla();
+                printf("TIENE QUE INTRODUCIR UN NUMERO ENTERO\n");
+                printf("PULSE ENTER PARA CONTINUAR");
+                esperaEnter();
+                dibujarFuncionPolinomica(grado);
+                printf("INTRODUCE PARAMETRO b: ");
+            }
         break;
         case 2:
             printf("INTRODUCE PARAMETRO a: ");
-            scanf("%lf",&array[0]);
+            while (scanf("%lf",&array[0])!=1){
+                refrescoPantalla();
+                printf("TIENE QUE INTRODUCIR UN NUMERO ENTERO\n");
+                printf("PULSE ENTER PARA CONTINUAR");
+                esperaEnter();
+                dibujarFuncionPolinomica(grado);
+                printf("INTRODUCE PARAMETRO a: ");
+            }
             printf("INTRODUCE PARAMETRO b: ");
-            scanf("%lf",&array[1]);
-            printf("INTRODUCE PARAMETRO c: ");
+            while (scanf("%lf",&array[0])!=1){
+                refrescoPantalla();
+                printf("TIENE QUE INTRODUCIR UN NUMERO ENTERO\n");
+                printf("PULSE ENTER PARA CONTINUAR");
+                esperaEnter();
+                dibujarFuncionPolinomica(grado);
+                printf("INTRODUCE PARAMETRO b: ");
+            }
+            while (scanf("%lf",&array[0])!=1){
+                refrescoPantalla();
+                printf("TIENE QUE INTRODUCIR UN NUMERO ENTERO\n");
+                printf("PULSE ENTER PARA CONTINUAR");
+                esperaEnter();
+                dibujarFuncionPolinomica(grado);
+                printf("INTRODUCE PARAMETRO c: ");
+        }
             scanf("%lf",&array[2]);
         break;
     }
@@ -213,7 +255,17 @@ bool menuFuncion(Funcion *funcion){
         printf("1. CALCULAR VALOR X \n");
         printf("2. CALCULAR F(X)=0 \n");
         printf("0. REGRESAR AL MENU PRINCIPAL\n");
-        scanf("%d",&seleccion);
+        while (scanf("%d",&seleccion)!=1){
+            refrescoPantalla();
+            printf("TIENE QUE INTRODUCIR UN NUMERO ENTERO\n");
+            printf("PULSE ENTER PARA CONTINUAR");
+            refrescoPantalla();
+            dibujarFuncion(funcion);
+            printf("1. CALCULAR VALOR X \n");
+            printf("2. CALCULAR F(X)=0 \n");
+            printf("0. REGRESAR AL MENU PRINCIPAL\n");
+            menuPrincipal();
+        }
         switch (seleccion){
             case 0:
             return true;
