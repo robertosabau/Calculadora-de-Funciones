@@ -8,6 +8,7 @@ Este proyecto se trata de una simple calculadora donde puedes realizar diferente
    * 1 Grado: `aX + b`
    * 2 Grado: `aX^2 + bx + c`
 2. **Exponencial:** `a^x`
+3. **LOGARITMO** `log_a(x)`
 
 ### Operaciones soportadas
 
