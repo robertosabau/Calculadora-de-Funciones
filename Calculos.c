@@ -1,7 +1,12 @@
-#include "funcion.h"
 #include <math.h>
+#include <stdio.h>
+#include <float.h>
+#include "funcion.h"
 
 double calculoValorX(double x,Funcion *funcion){
+    if (funcion==NULL){
+        return DBL_MIN;
+    }
     double resultado=0;
     switch (funcion->tipo){
         case POLINOMIO:
@@ -25,6 +30,9 @@ double calculoValorX(double x,Funcion *funcion){
 }
 
 double* calculoValorIgual0(Funcion *funcion){
+    if (funcion==NULL){
+        return NULL;
+    }
     switch (funcion->tipo){
         case POLINOMIO:
             switch (funcion->cantidadvalores)

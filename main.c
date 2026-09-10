@@ -2,6 +2,7 @@
 #include <stdbool.h>
 #include <stdint.h>
 #include <math.h>
+#include <float.h>
 #include "funcion.h"
 #include "Calculos.h"
 
@@ -280,11 +281,19 @@ bool menuFuncion(Funcion *funcion){
                 break;
                 case 1:
                     double x=obtenerX();
+                    if (x==DBL_MIN){
+                        errorPuntero();
+                        return true;
+                    }
                     double resultado=calculoValorX(x,funcion);
                     mostrarResultadoCalculoX(x,resultado);
                 break;
                 case 2:
                     double *x2=calculoValorIgual0(funcion);
+                    if (x2==NULL){
+                        errorPuntero();
+                        return true;
+                    }
                     if(mostrarResultadoObtenerIgual0(x2,funcion)){
                         return true;
                     }
