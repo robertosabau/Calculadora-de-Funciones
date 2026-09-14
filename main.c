@@ -5,25 +5,36 @@
 #include <float.h>
 #include "funcion.h"
 #include "Calculos.h"
+#include "Lecturas.h"
 
 //DECLARACIONES METODOS
 void menuPrincipal(void);
 void refrescoPantalla(void);
 void esperaEnter(void);
+void gradoPolinomioDisponible();
 void opcionIncorrecta(void);
 bool menuSeleccionFuncion(void);
 bool menuSeleccionGradoPolinomio(void);
 bool seleccionParametrosPolinomio(int grado,double *array);
-void dibujarFuncionPolinomica(int grado);
 bool menuFuncion(Funcion *funcion);
 bool menuParametroExponencial(void);
 bool menuParametroLogaritmo(void);
+void dibujarFuncion2(TipoFuncion tipo,int grado);
 bool dibujarFuncion(Funcion *funcion);
-bool dibujarFuncionPolinomica2(Funcion *funcion);
 double obtenerX(void);
 void mostrarResultadoCalculoX(double x,double resultado);
 bool mostrarResultadoObtenerIgual0(double *x,Funcion *funcion);
 void errorPuntero(void);
+bool menuSeleccionTipoTrigonometrica(void);
+void menuTiposFuncion(void);
+void tiposTrigonometrica(void);
+void buscarAtributoA(void);
+void buscarAtributoB(void);
+void buscarAtributoC(void);
+double obtenerAtributoA();
+double obtenerAtributoB();
+double obtenerAtributoC();
+void opcionesMenuFuncion(Funcion *funcion);
 
 //DESCRIPCION METODOS
 void menuPrincipal(){
@@ -34,6 +45,27 @@ void menuPrincipal(){
 void refrescoPantalla(){
     for (int a=0;a<50;a++){
         printf("\n");
+    }
+}
+void dibujarFuncion2(TipoFuncion tipo,int grado){
+    refrescoPantalla();
+    switch (tipo){
+        case POLINOMIO:
+            switch (grado){
+            case 1:
+                printf("TU FUNCION: aX + b\n");
+                break;
+            case 2:
+                printf("TU FUNCION: ax^2 + bx + c\n");
+                break;
+            }
+        break;
+        case EXPONENCIAL:
+            printf("TU FUNCION: a^x\n");
+        break;
+        case LOGARITMO:
+            printf("TU FUNCION: log_a(x)\n");
+        break;
     }
 }
 void esperaEnter(){
@@ -47,28 +79,44 @@ void opcionIncorrecta(){
     printf("PRESIONE ENTER PARA CONTINUAR");
     esperaEnter();
 }
+void menuTiposFuncion(){
+    refrescoPantalla();
+    printf("SELECCIONA EL TIPO DE FUNCION\n");
+    printf("1. POLINOMIO \n");
+    printf("2. EXPONENCIAL \n");
+    printf("3. LOGARITMO \n");
+    printf("4. TRIGONOMETRICA \n");
+    printf("0. REGRESAR AL MENU PRINCIPAL\n");
+}
+void buscarAtributoA(){
+    printf("INTRODUCE EL ATRIBUTO a: ");
+}
+void buscarAtributoB(){
+    printf("INTRODUCE EL ATRIBUTO b: ");
+}
+void buscarAtributoC(){
+    printf("INTRODUCE EL ATRIBUTO c: ");
+}
+double obtenerAtributoA(){
+    buscarAtributoA();
+    double numero=lecturaFlotante(buscarAtributoA);
+    return numero;
+}
+double obtenerAtributoB(){
+    buscarAtributoB();
+    double numero=lecturaFlotante(buscarAtributoB);
+    return numero;
+}
+double obtenerAtributoC(){
+    buscarAtributoB();
+    double numero=lecturaFlotante(buscarAtributoB);
+    return numero;
+}
 bool menuSeleccionFuncion(){
     while (true){
         int seleccion;
-        refrescoPantalla();
-        printf("SELECCIONA EL TIPO DE FUNCION\n");
-        printf("1. POLINOMIO \n");
-        printf("2. EXPONENCIAL \n");
-        printf("3. LOGARITMO \n");
-        printf("4. TRIGONOMETRICA \n");
-        printf("0. REGRESAR AL MENU PRINCIPAL\n");
-        while (scanf("%d",&seleccion)!=1){
-            refrescoPantalla();
-            printf("TIENE QUE INTRODUCIR UN NUMERO ENTERO\n");
-            printf("PULSE ENTER PARA CONTINUAR");
-            esperaEnter();
-            printf("SELECCIONA EL TIPO DE FUNCION\n");
-            printf("1. POLINOMIO \n");
-            printf("2. EXPONENCIAL \n");
-            printf("3. LOGARITMO \n");
-            printf("4. TRIGONOMETRICA \n");
-            printf("0. REGRESAR AL MENU PRINCIPAL\n");
-        }
+        menuTiposFuncion();
+        seleccion=lecturaEntero(menuTiposFuncion);
         switch (seleccion){
             case 1:
                 if (menuSeleccionGradoPolinomio()){
@@ -85,6 +133,11 @@ bool menuSeleccionFuncion(){
                     return true;
                 }
             break;
+            case 4:
+                if (menuSeleccionTipoTrigonometrica()){
+                    return true;
+                }
+            break;
             case 0:
             return false;
             break;
@@ -94,41 +147,55 @@ bool menuSeleccionFuncion(){
         }
     }
 }
+void tiposTrigonometrica(){
+    refrescoPantalla();
+    printf("SELECCIONE UNA FUNCION TRIGONOMETRICA\n");
+        printf("1. SENO\n");
+        printf("2. COSENO\n");
+        printf("3. TANGENTE\n");
+        printf("0. VOLVER ATRAS\n");
+}
+bool menuSeleccionTipoTrigonometrica(){
+    while (true){
+        tiposTrigonometrica();
+        int seleccion;
+        seleccion=lecturaEntero(tiposTrigonometrica);
+        switch (seleccion)
+        {
+            case 1:
+            break;
+            case 2:
+            break;
+            case 3:
+            break;
+            case 0:
+            return false;
+            break;
+            default:
+                opcionIncorrecta();
+            break;
+        }
+    }
+}
 bool menuParametroExponencial(){
     refrescoPantalla();
-    double a[1];
-    printf("TU FUNCION: a^x\n");
-    printf("INTRODUCE PARAMETRO a: ");
-    while (scanf("%lf",&a)!=1){
-            refrescoPantalla();
-            printf("TIENE QUE INTRODUCIR UN NUMERO ENTERO\n");
-            printf("PULSE ENTER PARA CONTINUAR");
-            esperaEnter();
-            printf("TU FUNCION: a^x\n");
-            printf("INTRODUCE PARAMETRO a: ");
-        }
+    double a;
+    dibujarFuncion2(EXPONENCIAL,0);
+    a=obtenerAtributoA();
     Funcion funcion;
     funcion.cantidadvalores=1;
     funcion.tipo=EXPONENCIAL;
-    funcion.valores=a;
+    funcion.valores=&a;
     return menuFuncion(&funcion);
 }
 bool menuParametroLogaritmo(){
     bool parametroCorrecto=false;
-    double a[1];
+    double a;
     while(!parametroCorrecto){
         refrescoPantalla();
-        printf("TU FUNCION: log_a(x)\n");
-        printf("INTRODUCE PARAMETRO a: ");
-        while (scanf("%lf",&a)!=1){
-            refrescoPantalla();
-            printf("TIENE QUE INTRODUCIR UN NUMERO\n");
-            printf("PULSE ENTER PARA CONTINUAR");
-            esperaEnter();
-            printf("TU FUNCION: log_a(x)\n");
-            printf("INTRODUCE PARAMETRO a: ");
-        }
-        if(a[0]>0&&a[0]!=1){
+        dibujarFuncion2(LOGARITMO,0);
+        a=obtenerAtributoA();
+        if(a>0&&a!=1){
             parametroCorrecto=true;
         }
         else{
@@ -140,18 +207,20 @@ bool menuParametroLogaritmo(){
     Funcion funcion;
     funcion.cantidadvalores=1;
     funcion.tipo=LOGARITMO;
-    funcion.valores=a;
+    funcion.valores=&a;
     return menuFuncion(&funcion);
+}
+void gradoPolinomioDisponible(){
+    refrescoPantalla();
+    printf("SELECCIONA EL GRADO DEL POLINOMIO\n");
+    printf("1. GRADO 1 \n");
+    printf("2. GRADO 2 \n");
+    printf("0. VOLVER ATRAS\n");
 }
 bool menuSeleccionGradoPolinomio(){
     while (true){
-        int seleccion;
-        refrescoPantalla();
-        printf("SELECCIONA EL GRADO DEL POLINOMIO\n");
-        printf("1. GRADO 1 \n");
-        printf("2. GRADO 2 \n");
-        printf("0. VOLVER ATRAS\n");
-        scanf("%d",&seleccion);
+        gradoPolinomioDisponible();
+        int seleccion=lecturaEntero(gradoPolinomioDisponible);
         switch (seleccion){
             case 1:{
                 double parametros[2];
@@ -192,89 +261,33 @@ bool seleccionParametrosPolinomio(int grado,double *array){
         return true;
     }
     refrescoPantalla();
-    dibujarFuncionPolinomica(grado);
+    dibujarFuncion2(POLINOMIO,grado);
     switch (grado){
         case 1:
-            printf("INTRODUCE PARAMETRO a: ");
-            while (scanf("%lf",&array[0])!=1){
-                refrescoPantalla();
-                printf("TIENE QUE INTRODUCIR UN NUMERO ENTERO\n");
-                printf("PULSE ENTER PARA CONTINUAR");
-                esperaEnter();
-                dibujarFuncionPolinomica(grado);
-                printf("INTRODUCE PARAMETRO a: ");
-            }
-            printf("INTRODUCE PARAMETRO b: ");
-            while (scanf("%lf",&array[1])!=1){
-                refrescoPantalla();
-                printf("TIENE QUE INTRODUCIR UN NUMERO ENTERO\n");
-                printf("PULSE ENTER PARA CONTINUAR");
-                esperaEnter();
-                dibujarFuncionPolinomica(grado);
-                printf("INTRODUCE PARAMETRO b: ");
-            }
+            array[0]=obtenerAtributoA();
+            array[1]=obtenerAtributoB();
         break;
         case 2:
-            printf("INTRODUCE PARAMETRO a: ");
-            while (scanf("%lf",&array[0])!=1){
-                refrescoPantalla();
-                printf("TIENE QUE INTRODUCIR UN NUMERO ENTERO\n");
-                printf("PULSE ENTER PARA CONTINUAR");
-                esperaEnter();
-                dibujarFuncionPolinomica(grado);
-                printf("INTRODUCE PARAMETRO a: ");
-            }
-            printf("INTRODUCE PARAMETRO b: ");
-            while (scanf("%lf",&array[1])!=1){
-                refrescoPantalla();
-                printf("TIENE QUE INTRODUCIR UN NUMERO ENTERO\n");
-                printf("PULSE ENTER PARA CONTINUAR");
-                esperaEnter();
-                dibujarFuncionPolinomica(grado);
-                printf("INTRODUCE PARAMETRO b: ");
-            }
-            while (scanf("%lf",&array[2])!=1){
-                refrescoPantalla();
-                printf("TIENE QUE INTRODUCIR UN NUMERO ENTERO\n");
-                printf("PULSE ENTER PARA CONTINUAR");
-                esperaEnter();
-                dibujarFuncionPolinomica(grado);
-                printf("INTRODUCE PARAMETRO c: ");
-        }
+            array[0]=obtenerAtributoA();
+            array[1]=obtenerAtributoB();
+            array[2]=obtenerAtributoC();
         break;
     }
     return false;
 }
-void dibujarFuncionPolinomica(int grado){
-    switch (grado){
-        case 1:
-            printf("TU FUNCION: aX + b\n");
-            break;
-        case 2:
-            printf("TU FUNCION: ax^2 + bx + c\n");
-            break;
-    }
+void opcionesMenuFuncion(Funcion *funcion){
+    refrescoPantalla();
+    dibujarFuncion(funcion);
+    printf("1. CALCULAR VALOR X \n");
+    printf("2. CALCULAR F(X)=0 \n");
+    printf("0. REGRESAR AL MENU PRINCIPAL\n");
 }
 bool menuFuncion(Funcion *funcion){
     if (funcion!=NULL){
         while (true){
             int seleccion;
-            refrescoPantalla();
-            dibujarFuncion(funcion);
-            printf("1. CALCULAR VALOR X \n");
-            printf("2. CALCULAR F(X)=0 \n");
-            printf("0. REGRESAR AL MENU PRINCIPAL\n");
-            while (scanf("%d",&seleccion)!=1){
-                refrescoPantalla();
-                printf("TIENE QUE INTRODUCIR UN NUMERO ENTERO\n");
-                printf("PULSE ENTER PARA CONTINUAR");
-                refrescoPantalla();
-                dibujarFuncion(funcion);
-                printf("1. CALCULAR VALOR X \n");
-                printf("2. CALCULAR F(X)=0 \n");
-                printf("0. REGRESAR AL MENU PRINCIPAL\n");
-                menuPrincipal();
-            }
+            opcionesMenuFuncion(funcion);
+            seleccion=lecturaEntero2(opcionesMenuFuncion,funcion);
             switch (seleccion){
                 case 0:
                 return true;
@@ -323,7 +336,14 @@ bool dibujarFuncion(Funcion *funcion){
     }
     switch (funcion->tipo){
         case POLINOMIO:
-            dibujarFuncionPolinomica2(funcion);
+            switch (funcion->cantidadvalores){
+            case 2:
+                printf("TU FUNCION: %2lfX + %2lf\n",funcion->valores[0],funcion->valores[1]);
+                break;
+            case 3:
+                printf("TU FUNCION: %2lfx^2 + %2lfx + %2lf\n",funcion->valores[0],funcion->valores[1],funcion->valores[2]);
+                break;
+            }
         break;
         case EXPONENCIAL:
             printf("TU FUNCION: %2lf^x\n",funcion->valores[0]);
@@ -331,21 +351,6 @@ bool dibujarFuncion(Funcion *funcion){
         case LOGARITMO:
             printf("TU FUNCION: log%2lf(x)\n",funcion->valores[0]);
         break;
-    }
-    return false;
-}
-bool dibujarFuncionPolinomica2(Funcion *funcion){
-    if (funcion==NULL){
-        errorPuntero();
-        return true;
-    }
-    switch (funcion->cantidadvalores){
-        case 2:
-            printf("TU FUNCION: %2lfX + %2lf\n",funcion->valores[0],funcion->valores[1]);
-            break;
-        case 3:
-            printf("TU FUNCION: %2lfx^2 + %2lfx + %2lf\n",funcion->valores[0],funcion->valores[1],funcion->valores[2]);
-            break;
     }
     return false;
 }
@@ -406,18 +411,13 @@ int main(){
     while(true){
         int seleccion;
         menuPrincipal();
-        while (scanf("%d",&seleccion)!=1){
-            refrescoPantalla();
-            printf("TIENE QUE INTRODUCIR UN NUMERO ENTERO\n");
-            printf("PULSE ENTER PARA CONTINUAR");
-            esperaEnter();
-            menuPrincipal();
-        }
+        seleccion=lecturaEntero(menuPrincipal);
         switch (seleccion){
             case 1:
                 menuSeleccionFuncion();
             break;
             case 0:
+                refrescoPantalla();
                 return 0;
             break;
             default:
