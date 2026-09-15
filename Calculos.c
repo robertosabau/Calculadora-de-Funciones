@@ -25,6 +25,15 @@ double calculoValorX(double x,Funcion *funcion){
         case LOGARITMO:
             resultado=log(x)/log(funcion->valores[0]);
         break;
+        case SENO:
+            resultado=sin(x*funcion->valores[0]);
+        break;
+        case COSENO:
+            resultado=cos(x*funcion->valores[0]);
+        break;
+        case TANGENTE:
+            resultado=tan(x*funcion->valores[0]);
+        break;
     }
     return resultado;
 }
@@ -65,6 +74,21 @@ double* calculoValorIgual0(Funcion *funcion){
             static double resultado;
             resultado=1;
             return &resultado;}
+        break;
+        case SENO:
+            static double resultado;
+            resultado=0;
+            return &resultado;
+        break;
+        case COSENO:
+            static double resultado;
+            resultado=1/funcion->valores[0];
+            return &resultado;
+        break;
+        case TANGENTE:
+            static double resultado;
+            resultado=0;
+            return &resultado;
         break;
     }
 }
