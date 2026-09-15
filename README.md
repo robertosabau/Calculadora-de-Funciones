@@ -8,18 +8,23 @@ Este proyecto se trata de una simple calculadora donde puedes realizar diferente
    * 1 Grado: `aX + b`
    * 2 Grado: `aX^2 + bx + c`
 2. **Exponencial:** `a^x`
-3. **LOGARITMO** `log_a(x)`
+3. **Logartimo** `log_a(x)`
+4. **Trigonometrica:**
+   * Seno: `sin(ax)`
+   * Coseno: `cos(ax)`
+   * Tangente: `tan (ax)`
 
 ### Operaciones soportadas
 
 * **Calcular valor X:** Te permite calcular qué valor dará la función creada en un punto específico de X.
 * **Calcular F(x) = 0:** Te permite averiguar en qué valor de X se cumple que la función da 0.
 
-### Compilación y Ejecución
+### Compilación y ejecución
 
-El proyecto ya viene compilado por defecto para **Windows**. 
+Para compilar el proyecto hay que ejecutar el archivo Build correspondiente:
+   * En el caso de **Windows**: `Build.bat`
+   * En el caso de **Linux/Mac OS**: `Build.sh`
 
-Para compilarlo en **macOS** o **Linux**, bastaría con tener un compilador de C (como `gcc`) y ejecutar en la terminal:
-```bash
-gcc main.c -o calculadora
-```
+En cualquier caso es necesario para ejecutar el archivo Build se necesita tener instalado el compilador **Gcc**.
+
+Una vez finalizado la compilación, para usar la aplicación se debe ejecutar el ejecutable generado.
