@@ -1,5 +1,6 @@
 #include <stdio.h>
 #include <stdlib.h>
+#include <math.h>
 #include "funcion.h"
 
 extern void esperaEnter();
@@ -90,6 +91,15 @@ bool dibujarFuncion(Funcion *funcion){
         case LOGARITMO:
             printf("TU FUNCION: log%2lf(x)\n",funcion->valores[0]);
         break;
+        case SENO:
+            printf("TU FUNCION: sin(%2lfx)\n",funcion->valores[0]);
+        break;
+        case COSENO:
+            printf("TU FUNCION: cos(%2lfx)\n",funcion->valores[0]);
+        break;
+        case TANGENTE:
+            printf("TU FUNCION: tan(%2lfx)\n",funcion->valores[0]);
+        break;
     }
     return false;
 }
@@ -111,6 +121,15 @@ void dibujarFuncion2(TipoFuncion tipo, int grado){
         break;
         case LOGARITMO:
             printf("TU FUNCION: log_a(x)\n");
+        break;
+        case SENO:
+            printf("TU FUNCION: sin(ax)\n");
+        break;
+        case COSENO:
+            printf("TU FUNCION: cos(ax)\n");
+        break;
+        case TANGENTE:
+            printf("TU FUNCION: tan(ax)\n");
         break;
     }
 }
@@ -161,6 +180,15 @@ bool mostrarResultadoObtenerIgual0(double* x,Funcion *funcion){
                 }
             break;
             case LOGARITMO:
+                printf("RESULTADO = %2lf\n",x[0]);
+            break;
+            case COSENO:
+                printf("RESULTADO = %2lf\n",x[0]);
+            break;
+            case SENO:
+                printf("RESULTADO = %2lf\n",x[0]);
+            break;
+            case TANGENTE:
                 printf("RESULTADO = %2lf\n",x[0]);
             break;
         }

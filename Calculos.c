@@ -70,25 +70,25 @@ double* calculoValorIgual0(Funcion *funcion){
             resultado=-INFINITY;
             return &resultado;
         break;
-        case LOGARITMO:{
-            static double resultado;
+        case LOGARITMO:
+            static double resultado1;
             resultado=1;
-            return &resultado;}
+            return &resultado1;
         break;
         case SENO:
-            static double resultado;
+            static double resultado3;
             resultado=0;
-            return &resultado;
+            return &resultado3;
         break;
         case COSENO:
-            static double resultado;
+            static double resultado4;
             resultado=1/funcion->valores[0];
-            return &resultado;
+            return &resultado4;
         break;
         case TANGENTE:
-            static double resultado;
+            static double resultado5;
             resultado=0;
-            return &resultado;
+            return &resultado5;
         break;
     }
 }

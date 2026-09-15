@@ -21,6 +21,8 @@ double obtenerAtributoC(void);
 bool menuSeleccionFuncion(void);
 //Seleccion tipo de funcion trigonometrica
 bool menuSeleccionTipoTrigonometrica(void);
+//Seleccion parametro trigonometrica
+double menuParametroTrigonometrica(int tipo);
 //Selección parametro función exponencial
 bool menuParametroExponencial(void);
 //Seleccion parametro funcion logaritmo
@@ -96,10 +98,30 @@ bool menuSeleccionTipoTrigonometrica(){
         switch (seleccion)
         {
             case 1:
+                double a=menuParametroTrigonometrica(0);
+                Funcion funcion;
+                funcion.cantidadvalores=1;
+                funcion.tipo=SENO;
+                funcion.valores=&a;
+                return menuFuncion(&funcion);
             break;
-            case 2:
+            case 2:{
+                double a=menuParametroTrigonometrica(1);
+                Funcion funcion;
+                funcion.cantidadvalores=1;
+                funcion.tipo=COSENO;
+                funcion.valores=&a;
+                return menuFuncion(&funcion);}
+
             break;
-            case 3:
+            case 3:{
+                double a=menuParametroTrigonometrica(2);
+                Funcion funcion;
+                funcion.cantidadvalores=1;
+                funcion.tipo=TANGENTE;
+                funcion.valores=&a;
+                return menuFuncion(&funcion);
+            }
             break;
             case 0:
             return false;
@@ -109,6 +131,25 @@ bool menuSeleccionTipoTrigonometrica(){
             break;
         }
     }
+}
+double menuParametroTrigonometrica(int tipo){
+    double parametro;
+    switch (tipo){
+        //Seno
+        case 0:
+            dibujarFuncion2(SENO,0);
+        break;
+        //Coseno
+        case 1:
+            dibujarFuncion2(COSENO,0);
+        break;
+        //Tangente
+        case 2:
+            dibujarFuncion2(TANGENTE,0);
+        break;
+    }
+    parametro=obtenerAtributoA();
+    return parametro;
 }
 bool menuParametroExponencial(){
     refrescoPantalla();
