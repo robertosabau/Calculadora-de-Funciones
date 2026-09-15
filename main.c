@@ -31,8 +31,6 @@ bool menuSeleccionGradoPolinomio(void);
 bool seleccionParametrosPolinomio(int grado,double *array);
 //Menu de la funcion
 bool menuFuncion(Funcion *funcion);
-void mostrarResultadoCalculoX(double x,double resultado);
-bool mostrarResultadoObtenerIgual0(double *x,Funcion *funcion);
 
 //DESCRIPCION METODOS
 void esperaEnter(){
@@ -243,44 +241,6 @@ bool menuFuncion(Funcion *funcion){
         return true;
     }
     
-}
-void mostrarResultadoCalculoX(double x,double resultado){
-    refrescoPantalla();
-    printf("F( %2lf ) = %2lf \n",x,resultado);
-    printf("PULSE ENTER PARA CONTINUAR");
-    esperaEnter();
-}
-bool mostrarResultadoObtenerIgual0(double* x,Funcion *funcion){
-    if (funcion==NULL||x==NULL){
-        errorPuntero();
-        return true;
-    }
-    refrescoPantalla();
-    if(isfinite(x[0])){
-        switch (funcion->tipo){
-            case POLINOMIO:
-                switch(funcion->cantidadvalores){
-                    case 2:
-                        printf("RESULTADO = %2lf\n",x[0]);
-                    break;
-                    case 3:
-                        printf("RESULTADO 1 = %2lf\n",x[0]);
-                        printf("RESULTADO 2 = %2lf\n",x[1]);
-                    break;
-                }
-            break;
-            case LOGARITMO:
-                printf("RESULTADO = %2lf\n",x[0]);
-            break;
-        }
-        printf("PULSE ENTER PARA CONTINUAR");
-    }
-    else{
-        printf("NO EXISTE UN VALOR DONDE F(X)=0\n");
-        printf("PULSE ENTER PARA CONTINUAR");
-    }
-    esperaEnter();
-    return false;
 }
 int main(){
     while(true){
