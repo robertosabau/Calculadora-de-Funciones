@@ -1,5 +1,5 @@
 @echo off
-gcc main.c -o calculadora.exe
+gcc *.c -o calculadora.exe
 if %errorlevel% equ 0 (
     echo Programa compilado con exito.
 ) else (

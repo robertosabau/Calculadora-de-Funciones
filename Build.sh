@@ -1,5 +1,5 @@
 #!/bin/bash
-gcc main.c -o calculadora
+gcc *.c -o calculadora
 if [ $? -eq 0 ]; then
     echo "Programa compilado con exito."
 else
