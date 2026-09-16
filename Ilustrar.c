@@ -171,25 +171,25 @@ bool mostrarResultadoObtenerIgual0(double* x,Funcion *funcion){
             case POLINOMIO:
                 switch(funcion->cantidadvalores){
                     case 2:
-                        printf("RESULTADO = %2lf\n",x[0]);
+                        printf("F(%2lf)=0\n",x[0]);
                     break;
                     case 3:
-                        printf("RESULTADO 1 = %2lf\n",x[0]);
-                        printf("RESULTADO 2 = %2lf\n",x[1]);
+                        printf("F(%2lf)=0\n",x[0]);
+                        printf("F(%2lf)=0\n",x[1]);
                     break;
                 }
             break;
             case LOGARITMO:
-                printf("RESULTADO = %2lf\n",x[0]);
+                printf("F(%2lf)=0\n",x[0]);
             break;
             case COSENO:
-                printf("RESULTADO = %2lf\n",x[0]);
+                printf("F(%2lf)=0\n",x[0]);
             break;
             case SENO:
-                printf("RESULTADO = %2lf\n",x[0]);
+                printf("F(%2lf)=0\n",x[0]);
             break;
             case TANGENTE:
-                printf("RESULTADO = %2lf\n",x[0]);
+                printf("F(%2lf)=0\n",x[0]);
             break;
         }
         printf("PULSE ENTER PARA CONTINUAR");
