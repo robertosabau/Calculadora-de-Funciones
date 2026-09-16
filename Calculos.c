@@ -72,22 +72,22 @@ double* calculoValorIgual0(Funcion *funcion){
         break;
         case LOGARITMO:
             static double resultado1;
-            resultado=1;
+            resultado1=1;
             return &resultado1;
         break;
         case SENO:
             static double resultado3;
-            resultado=0;
+            resultado3=0;
             return &resultado3;
         break;
         case COSENO:
             static double resultado4;
-            resultado=1/funcion->valores[0];
+            resultado4=1.570796/funcion->valores[0];
             return &resultado4;
         break;
         case TANGENTE:
             static double resultado5;
-            resultado=0;
+            resultado5=0;
             return &resultado5;
         break;
     }
