@@ -28,4 +28,8 @@
     void opcionesMenuFuncion(Funcion *funcion);
     //Metodo para obtener el valor de la x para calcularlo
     double obtenerX();
+    //Mostrar el resultado que ha dado la x en la funcion
+    void mostrarResultadoCalculoX(double x,double resultado);
+    //Mostrar el resultado de intentar obtener cuando f(x)=0
+    bool mostrarResultadoObtenerIgual0(double *x,Funcion *funcion);
 #endif

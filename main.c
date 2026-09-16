@@ -21,6 +21,8 @@ double obtenerAtributoC(void);
 bool menuSeleccionFuncion(void);
 //Seleccion tipo de funcion trigonometrica
 bool menuSeleccionTipoTrigonometrica(void);
+//Seleccion parametro trigonometrica
+double menuParametroTrigonometrica(int tipo);
 //Selección parametro función exponencial
 bool menuParametroExponencial(void);
 //Seleccion parametro funcion logaritmo
@@ -31,8 +33,6 @@ bool menuSeleccionGradoPolinomio(void);
 bool seleccionParametrosPolinomio(int grado,double *array);
 //Menu de la funcion
 bool menuFuncion(Funcion *funcion);
-void mostrarResultadoCalculoX(double x,double resultado);
-bool mostrarResultadoObtenerIgual0(double *x,Funcion *funcion);
 
 //DESCRIPCION METODOS
 void esperaEnter(){
@@ -98,10 +98,30 @@ bool menuSeleccionTipoTrigonometrica(){
         switch (seleccion)
         {
             case 1:
+                double a=menuParametroTrigonometrica(0);
+                Funcion funcion;
+                funcion.cantidadvalores=1;
+                funcion.tipo=SENO;
+                funcion.valores=&a;
+                return menuFuncion(&funcion);
             break;
-            case 2:
+            case 2:{
+                double a=menuParametroTrigonometrica(1);
+                Funcion funcion;
+                funcion.cantidadvalores=1;
+                funcion.tipo=COSENO;
+                funcion.valores=&a;
+                return menuFuncion(&funcion);}
+
             break;
-            case 3:
+            case 3:{
+                double a=menuParametroTrigonometrica(2);
+                Funcion funcion;
+                funcion.cantidadvalores=1;
+                funcion.tipo=TANGENTE;
+                funcion.valores=&a;
+                return menuFuncion(&funcion);
+            }
             break;
             case 0:
             return false;
@@ -111,6 +131,25 @@ bool menuSeleccionTipoTrigonometrica(){
             break;
         }
     }
+}
+double menuParametroTrigonometrica(int tipo){
+    double parametro;
+    switch (tipo){
+        //Seno
+        case 0:
+            dibujarFuncion2(SENO,0);
+        break;
+        //Coseno
+        case 1:
+            dibujarFuncion2(COSENO,0);
+        break;
+        //Tangente
+        case 2:
+            dibujarFuncion2(TANGENTE,0);
+        break;
+    }
+    parametro=obtenerAtributoA();
+    return parametro;
 }
 bool menuParametroExponencial(){
     refrescoPantalla();
@@ -243,44 +282,6 @@ bool menuFuncion(Funcion *funcion){
         return true;
     }
     
-}
-void mostrarResultadoCalculoX(double x,double resultado){
-    refrescoPantalla();
-    printf("F( %2lf ) = %2lf \n",x,resultado);
-    printf("PULSE ENTER PARA CONTINUAR");
-    esperaEnter();
-}
-bool mostrarResultadoObtenerIgual0(double* x,Funcion *funcion){
-    if (funcion==NULL||x==NULL){
-        errorPuntero();
-        return true;
-    }
-    refrescoPantalla();
-    if(isfinite(x[0])){
-        switch (funcion->tipo){
-            case POLINOMIO:
-                switch(funcion->cantidadvalores){
-                    case 2:
-                        printf("RESULTADO = %2lf\n",x[0]);
-                    break;
-                    case 3:
-                        printf("RESULTADO 1 = %2lf\n",x[0]);
-                        printf("RESULTADO 2 = %2lf\n",x[1]);
-                    break;
-                }
-            break;
-            case LOGARITMO:
-                printf("RESULTADO = %2lf\n",x[0]);
-            break;
-        }
-        printf("PULSE ENTER PARA CONTINUAR");
-    }
-    else{
-        printf("NO EXISTE UN VALOR DONDE F(X)=0\n");
-        printf("PULSE ENTER PARA CONTINUAR");
-    }
-    esperaEnter();
-    return false;
 }
 int main(){
     while(true){
