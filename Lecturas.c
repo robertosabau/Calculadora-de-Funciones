@@ -1,4 +1,5 @@
 #include <stdio.h> 
+#include <string.h>
 #include "funcion.h"
 
 //Metodos del main
@@ -40,4 +41,17 @@ double lecturaFlotante(void (*texto)(void)){
         texto();
     }
     return numero;
+}
+void lecturaString(void (*texto)(void),char*buffer,int cantidad){
+    fgets(buffer,cantidad,stdin);
+    while(strcmp(buffer,"\n")==0||strlen(buffer)<= 1){
+        refrescoPantalla();
+        printf("TIENES QUE INTRODUCIR UN TEXTO VALIDO");
+        printf("PULSE ENTER PARA CONTINUAR");
+        esperaEnter();
+        refrescoPantalla();
+        texto();
+        fgets(buffer,cantidad,stdin);
+    }
+    buffer[strcspn(buffer, "\n")] = '\0';
 }
