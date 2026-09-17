@@ -46,5 +46,7 @@ Funcion cargarFuncion(char* nombre){
     for (int i=0;i<funcion.cantidadvalores;i++){
         fread(&funcion.valores[i],sizeof(double),1,archivo);
     }
+    fclose(archivo);
+    free(nombre_completo);
     return funcion;
 }
