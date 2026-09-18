@@ -3,6 +3,8 @@
 #include <math.h>
 #include "funcion.h"
 
+const char* version="1.1.0";
+
 extern void esperaEnter();
 
 void refrescoPantalla(){
@@ -33,7 +35,7 @@ void errorPuntero(void){
 }
 void menuPrincipal(){
     refrescoPantalla();
-    printf("VERSION: 1.0.1\n");
+    printf("VERSION: &s\n",version);
     printf("1. CREAR FUNCION \n");
     printf("2. CARGAR FUNCION\n");
     printf("0. SALIR\n");
