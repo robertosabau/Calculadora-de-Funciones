@@ -28,9 +28,21 @@
     //Mostrar opciones del menu de la función
     void opcionesMenuFuncion(Funcion *funcion);
     //Metodo para obtener el valor de la x para calcularlo
-    double obtenerX();
+    double obtenerX(void);
     //Mostrar el resultado que ha dado la x en la funcion
     void mostrarResultadoCalculoX(double x,double resultado);
     //Mostrar el resultado de intentar obtener cuando f(x)=0
     bool mostrarResultadoObtenerIgual0(double *x,Funcion *funcion);
+    //Texto para pedir el nombre del guardado que quiere cargar
+    void menuCargarFuncion(void);
+    //Mostrar que ha habido un problema al cargar el fichero
+    void errorCargar(void);
+    //Mostrar que ha cargado correctamente la función
+    void cargadoCorrecto(void);
+    //Texto para guardar una función
+    void menuGuardarFuncion(void);
+    //Mostrar que se ha guardado correctamente
+    void guardadoCorrecto(void);
+    //Mostrar que no se ha podido guardar
+    void errorGuardar(void);
 #endif

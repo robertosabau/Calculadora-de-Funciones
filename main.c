@@ -11,7 +11,7 @@
 
 //DECLARACIONES METODOS
 //Esperar un enter del jugador
-void esperaEnter(void);
+void esperaEnter(bool limpiar);
 //Obtener el atributo a de la función
 double obtenerAtributoA(void);
 //Obtener el atributo b de la función
@@ -34,11 +34,17 @@ bool menuSeleccionGradoPolinomio(void);
 bool seleccionParametrosPolinomio(int grado,double *array);
 //Menu de la funcion
 bool menuFuncion(Funcion *funcion);
+//Menu para cargar una funcion
+bool CargarFuncion();
+//Menu para guardar una funcion
+bool GuardarFuncion(Funcion *funcion);
 
 //DESCRIPCION METODOS
-void esperaEnter(){
+void esperaEnter(bool limpiar){
     int c;
-    while (c=getchar() != '\n' && c != EOF);
+    if(limpiar){
+        while ((c = getchar()) != '\n' && c != EOF);
+    }
     getchar();
 }
 double obtenerAtributoA(){
@@ -176,7 +182,7 @@ bool menuParametroLogaritmo(){
         else{
             refrescoPantalla();
             printf("EL PARAMETRO NO ES CORRECTO");
-            esperaEnter();
+            esperaEnter(true);
         }
     }
     Funcion funcion;
@@ -272,6 +278,9 @@ bool menuFuncion(Funcion *funcion){
                         return true;
                     }
                 break;
+                case 3:
+                    GuardarFuncion(funcion);
+                break;
                 default:
                     opcionIncorrecta();
                 break;
@@ -282,7 +291,35 @@ bool menuFuncion(Funcion *funcion){
         errorPuntero();
         return true;
     }
-    
+}
+bool CargarFuncion(){
+    menuCargarFuncion();
+    char nombre[20];
+    lecturaString(menuCargarFuncion,nombre,20);
+    Funcion funcion=cargarFuncion(nombre);
+    if (funcion.valores!=NULL){
+        cargadoCorrecto();
+        if (menuFuncion(&funcion)){
+            return true;
+        }
+    }
+    else{
+        errorCargar();
+        return false;
+    }
+}
+bool GuardarFuncion(Funcion *funcion){
+    menuGuardarFuncion();
+    char nombre[20];
+    lecturaString(menuGuardarFuncion,nombre,20);
+    if (guardarFuncion(funcion,nombre)){
+        guardadoCorrecto();
+        return true;
+    }
+    else{
+        errorGuardar();
+        return false;
+    }
 }
 int main(){
     while(true){
@@ -294,7 +331,7 @@ int main(){
                 menuSeleccionFuncion();
             break;
             case 2:
-
+                CargarFuncion();
             break;
             case 0:
                 refrescoPantalla();
