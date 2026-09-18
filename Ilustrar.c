@@ -1,9 +1,12 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <math.h>
+#include <dirent.h>
 #include "funcion.h"
 
-extern void esperaEnter();
+const char* version="1.1.0";
+
+extern void esperaEnter(bool limpiar);
 
 void refrescoPantalla(){
     //Windows
@@ -23,17 +26,20 @@ void opcionIncorrecta(){
     refrescoPantalla();
     printf("OPCION NO VALIDA\n");
     printf("PRESIONE ENTER PARA CONTINUAR");
-    esperaEnter();
+    esperaEnter(true);
 }
 void errorPuntero(void){
     refrescoPantalla();
     printf("HA OCURRIDO UN PROBLEMA\n");
     printf("PULSE ENTER PARA CONTINUAR");
-    esperaEnter();
+    esperaEnter(true);
 }
 void menuPrincipal(){
     refrescoPantalla();
+    printf("CALCULADORA DE FUNCIONES\n");
+    printf("VERSION: %s\n",version);
     printf("1. CREAR FUNCION \n");
+    printf("2. CARGAR FUNCION\n");
     printf("0. SALIR\n");
 }
 void menuTiposFuncion(){
@@ -138,6 +144,7 @@ void opcionesMenuFuncion(Funcion *funcion){
     dibujarFuncion(funcion);
     printf("1. CALCULAR VALOR X \n");
     printf("2. CALCULAR F(X)=0 \n");
+    printf("3. GUARDAR FUNCION\n");
     printf("0. REGRESAR AL MENU PRINCIPAL\n");
 }
 double obtenerX(){
@@ -148,7 +155,7 @@ double obtenerX(){
         refrescoPantalla();
         printf("TIENE QUE INTRODUCIR UN NUMERO ENTERO\n");
         printf("PULSE ENTER PARA CONTINUAR");
-        esperaEnter();
+        esperaEnter(true);
         refrescoPantalla();
         printf("INTRODUCE EL VALOR DE X PARA EVALUAR: ");
     }
@@ -158,7 +165,7 @@ void mostrarResultadoCalculoX(double x,double resultado){
     refrescoPantalla();
     printf("F( %2lf ) = %2lf \n",x,resultado);
     printf("PULSE ENTER PARA CONTINUAR");
-    esperaEnter();
+    esperaEnter(true);
 }
 bool mostrarResultadoObtenerIgual0(double* x,Funcion *funcion){
     if (funcion==NULL||x==NULL){
@@ -198,6 +205,38 @@ bool mostrarResultadoObtenerIgual0(double* x,Funcion *funcion){
         printf("NO EXISTE UN VALOR DONDE F(X)=0\n");
         printf("PULSE ENTER PARA CONTINUAR");
     }
-    esperaEnter();
+    esperaEnter(true);
     return false;
+}
+void menuCargarFuncion(){
+    refrescoPantalla();
+    printf("INTRODUCE EL NOMBRE DEL GUARDADO QUE DESEA CARGAR: ");
+}
+void errorCargar(){
+    refrescoPantalla();
+    printf("HA OCURRIDO UN ERROR AL INTENTAR CARGAR EL ARCHIVO\n");
+    printf("PULSE ENTER PARA CONTINUAR");
+    esperaEnter(false);
+}
+void cargadoCorrecto(){
+    refrescoPantalla();
+    printf("EL CARHADO HA SALIDO CORRECTAMENTE");
+    esperaEnter(false);
+}
+void menuGuardarFuncion(){
+    refrescoPantalla();
+    printf("AVISO:\n");
+    printf("EL NOMBRE SOLO PUEDE TENER 20 CARACTERES\n");
+    printf("INTRODUCE EL NOMBRE PARA GUARDAR LA FUNCION: ");
+}
+void guardadoCorrecto(){
+    refrescoPantalla();
+    printf("EL GUARDADO HA SALIDO CORRECTAMENTE");
+    esperaEnter(false);
+}
+void errorGuardar(){
+    refrescoPantalla();
+    printf("HA OCURRIDO UN ERROR AL INTENTAR GUARDAR LA FUNCION\n");
+    printf("PULSE ENTER PARA CONTINUAR");
+    esperaEnter(false);
 }

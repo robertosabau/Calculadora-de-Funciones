@@ -6,5 +6,7 @@ int lecturaEntero(void (*texto)(void));
 int lecturaEntero2(void (*texto)(Funcion*),Funcion *funcion);
 //Leer un numero double
 double lecturaFlotante(void (*texto)(void));
+//Leer un string
+void lecturaString(void (*texto)(void),char*buffer,int cantidad);
 
 #endif
