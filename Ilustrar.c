@@ -34,6 +34,7 @@ void errorPuntero(void){
 void menuPrincipal(){
     refrescoPantalla();
     printf("1. CREAR FUNCION \n");
+    printf("2. CARGAR FUNCION\n");
     printf("0. SALIR\n");
 }
 void menuTiposFuncion(){

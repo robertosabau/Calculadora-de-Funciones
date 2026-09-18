@@ -1,5 +1,7 @@
 #include <stdio.h>
 #include <stdbool.h>
+#include <stdlib.h>
+#include <string.h>
 #include "Ilustrar.h"
 #include "funcion.h"
 #include "Lecturas.h"
@@ -11,14 +13,19 @@ bool guardarFuncion(Funcion *funcion, char* nombre){
         return false;
     }
     strcpy(nombre_completo, nombre);
-    strcpy(nombre_completo, extension);
+    strcat(nombre_completo, extension);
+    printf("PROBANDO NUEVO CODIGO:: %d\n", funcion->cantidadvalores);
     FILE *archivo=fopen(nombre_completo,"wb");
     if (archivo==NULL){
+        free(nombre_completo);
         return false;
     }
-    fwirte(&funcion->tipo,sizeof(TipoFuncion),1,archivo);
+    fwrite(&funcion->tipo,sizeof(TipoFuncion),1,archivo);
     fwrite(&funcion->cantidadvalores,sizeof(int),1,archivo);
     fwrite(funcion->valores,sizeof(double),funcion->cantidadvalores,archivo);
+    if (fflush(archivo)!=0){
+        return false;
+    }
     fclose(archivo);
     free(nombre_completo);
     return true;
@@ -34,13 +41,14 @@ Funcion cargarFuncion(char* nombre){
     }
     strcpy(nombre_completo, nombre);
     strcat(nombre_completo, extension);
-    FILE *archivo=fopen(nombre_completo,"wb");
+    FILE *archivo=fopen(nombre_completo,"rb");
     if (archivo==NULL){
+        free(nombre_completo);
         funcion.valores=NULL;
         return funcion;
     }
-    fread(funcion.tipo,sizeof(TipoFuncion),1,archivo);
-    fread(funcion.cantidadvalores,sizeof(int),1,archivo);
+    fread(&funcion.tipo,sizeof(TipoFuncion),1,archivo);
+    fread(&funcion.cantidadvalores,sizeof(int),1,archivo);
     static double valores[3];
     funcion.valores=valores;
     for (int i=0;i<funcion.cantidadvalores;i++){

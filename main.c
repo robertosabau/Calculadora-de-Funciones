@@ -7,6 +7,7 @@
 #include "Calculos.h"
 #include "Lecturas.h"
 #include "Ilustrar.h"
+#include "Gestor.h"
 
 //DECLARACIONES METODOS
 //Esperar un enter del jugador
@@ -291,6 +292,9 @@ int main(){
         switch (seleccion){
             case 1:
                 menuSeleccionFuncion();
+            break;
+            case 2:
+
             break;
             case 0:
                 refrescoPantalla();

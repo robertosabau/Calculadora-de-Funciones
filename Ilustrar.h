@@ -1,5 +1,6 @@
 #ifndef ILUSTRAR_H
 #define ILUSTRAR_H
+#include "funcion.h"
     //Limpieza consola de comandos
     void refrescoPantalla(void);
     //Mostrar que la opcion no es correcta
