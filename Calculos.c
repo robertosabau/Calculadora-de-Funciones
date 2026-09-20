@@ -2,6 +2,7 @@
 #include <stdio.h>
 #include <float.h>
 #include "funcion.h"
+#include "Ilustrar.h"
 
 double calculoValorX(double x,Funcion *funcion){
     if (funcion==NULL){
@@ -91,4 +92,47 @@ double* calculoValorIgual0(Funcion *funcion){
             return &resultado5;
         break;
     }
+}
+bool calculoDerivada(Funcion *funcion){
+    if (funcion==NULL){
+        errorPuntero();
+        return true;
+    }
+    switch(funcion->tipo){
+        case POLINOMIO:
+            switch (funcion->cantidadvalores){
+                case 2:
+                    refrescoPantalla();
+                    printf("F'(X)= %lf",funcion->valores[0]);
+                break;
+                case 3:
+                    refrescoPantalla();
+                    double valor=funcion->valores[0]*2;
+                    printf("F'(X)= %lfx + %lf",valor,funcion->valores[1]);
+                break;
+            }
+        break;
+        case EXPONENCIAL:
+            refrescoPantalla();
+            printf("F'(X)= (%lf^x)*ln(%lf)",funcion->valores[0],funcion->valores[0]);
+        break;
+        case LOGARITMO:
+            refrescoPantalla();
+            printf("F'(X)=1/(x*ln(%lf))",funcion->valores[0]);
+        break;
+        case SENO:
+            refrescoPantalla();
+            printf("F'(X)=%lf*cos(%lfx)",funcion->valores[0],funcion->valores[0]);
+        break;
+        case COSENO:
+            refrescoPantalla();
+            printf("F'(X)=-%lf*sin(%lfx)",funcion->valores[0],funcion->valores[0]);
+        break;
+        case TANGENTE:
+            refrescoPantalla();
+            printf("F'(X)=%lf*sec^2(%lfx)",funcion->valores[0],funcion->valores[0]);
+        break;
+    }
+    printf("\n");
+    return false;
 }

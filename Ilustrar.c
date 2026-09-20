@@ -144,7 +144,8 @@ void opcionesMenuFuncion(Funcion *funcion){
     dibujarFuncion(funcion);
     printf("1. CALCULAR VALOR X \n");
     printf("2. CALCULAR F(X)=0 \n");
-    printf("3. GUARDAR FUNCION\n");
+    printf("3. CALCULAR DERIVADA \n");
+    printf("4. GUARDAR FUNCION\n");
     printf("0. REGRESAR AL MENU PRINCIPAL\n");
 }
 double obtenerX(){

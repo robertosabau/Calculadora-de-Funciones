@@ -64,9 +64,8 @@ double obtenerAtributoC(){
 }
 bool menuSeleccionFuncion(){
     while (true){
-        int seleccion;
         menuTiposFuncion();
-        seleccion=lecturaEntero(menuTiposFuncion);
+        int seleccion=lecturaEntero(menuTiposFuncion);
         switch (seleccion){
             case 1:
                 if (menuSeleccionGradoPolinomio()){
@@ -100,8 +99,7 @@ bool menuSeleccionFuncion(){
 bool menuSeleccionTipoTrigonometrica(){
     while (true){
         tiposTrigonometrica();
-        int seleccion;
-        seleccion=lecturaEntero(tiposTrigonometrica);
+        int seleccion=lecturaEntero(tiposTrigonometrica);
         switch (seleccion)
         {
             case 1:
@@ -160,9 +158,8 @@ double menuParametroTrigonometrica(int tipo){
 }
 bool menuParametroExponencial(){
     refrescoPantalla();
-    double a;
     dibujarFuncion2(EXPONENCIAL,0);
-    a=obtenerAtributoA();
+    double a=obtenerAtributoA();
     Funcion funcion;
     funcion.cantidadvalores=1;
     funcion.tipo=EXPONENCIAL;
@@ -252,9 +249,8 @@ bool seleccionParametrosPolinomio(int grado,double *array){
 bool menuFuncion(Funcion *funcion){
     if (funcion!=NULL){
         while (true){
-            int seleccion;
             opcionesMenuFuncion(funcion);
-            seleccion=lecturaEntero2(opcionesMenuFuncion,funcion);
+            int seleccion=lecturaEntero2(opcionesMenuFuncion,funcion);
             switch (seleccion){
                 case 0:
                 return true;
@@ -279,6 +275,13 @@ bool menuFuncion(Funcion *funcion){
                     }
                 break;
                 case 3:
+                    if(calculoDerivada(funcion)){
+                        return true;
+                    }
+                    printf("PULSE ENTER PARA CONTINUAR");
+                    esperaEnter(true);
+                break;
+                case 4:
                     GuardarFuncion(funcion);
                 break;
                 default:
@@ -323,9 +326,8 @@ bool GuardarFuncion(Funcion *funcion){
 }
 int main(){
     while(true){
-        int seleccion;
         menuPrincipal();
-        seleccion=lecturaEntero(menuPrincipal);
+        int seleccion=lecturaEntero(menuPrincipal);
         switch (seleccion){
             case 1:
                 menuSeleccionFuncion();
