@@ -275,6 +275,13 @@ bool menuFuncion(Funcion *funcion){
                     }
                 break;
                 case 3:
+                    if(calculoDerivada(funcion)){
+                        return true;
+                    }
+                    printf("PULSE ENTER PARA CONTINUAR");
+                    esperaEnter(true);
+                break;
+                case 4:
                     GuardarFuncion(funcion);
                 break;
                 default:
