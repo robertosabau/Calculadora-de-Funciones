@@ -58,7 +58,7 @@ double obtenerAtributoB(){
     return numero;
 }
 double obtenerAtributoC(){
-    buscarAtributoB();
+    buscarAtributoC();
     double numero=lecturaFlotante(buscarAtributoB);
     return numero;
 }
