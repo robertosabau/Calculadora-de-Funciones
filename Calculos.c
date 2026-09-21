@@ -16,7 +16,7 @@ double calculoValorX(double x,Funcion *funcion){
                 resultado=funcion->valores[0]*x+funcion->valores[1];
                 break;
                 case 3:
-                resultado=funcion->valores[0]*pow(2,x)+funcion->valores[1]*x+funcion->valores[2];
+                resultado=funcion->valores[0]*pow(x,2)+funcion->valores[1]*x+funcion->valores[2];
                 break;
             }
         break;
