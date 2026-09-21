@@ -84,27 +84,27 @@ bool dibujarFuncion(Funcion *funcion){
         case POLINOMIO:
             switch (funcion->cantidadvalores){
             case 2:
-                printf("TU FUNCION: %2lfX + %2lf\n",funcion->valores[0],funcion->valores[1]);
+                printf("TU FUNCION: %gx + %g\n",funcion->valores[0],funcion->valores[1]);
                 break;
             case 3:
-                printf("TU FUNCION: %2lfx^2 + %2lfx + %2lf\n",funcion->valores[0],funcion->valores[1],funcion->valores[2]);
+                printf("TU FUNCION: %gx^2 + %gx + %g\n",funcion->valores[0],funcion->valores[1],funcion->valores[2]);
                 break;
             }
         break;
         case EXPONENCIAL:
-            printf("TU FUNCION: %2lf^x\n",funcion->valores[0]);
+            printf("TU FUNCION: %g^x\n",funcion->valores[0]);
         break;
         case LOGARITMO:
-            printf("TU FUNCION: log%2lf(x)\n",funcion->valores[0]);
+            printf("TU FUNCION: log%g(x)\n",funcion->valores[0]);
         break;
         case SENO:
-            printf("TU FUNCION: sin(%2lfx)\n",funcion->valores[0]);
+            printf("TU FUNCION: sin(%gx)\n",funcion->valores[0]);
         break;
         case COSENO:
-            printf("TU FUNCION: cos(%2lfx)\n",funcion->valores[0]);
+            printf("TU FUNCION: cos(%gx)\n",funcion->valores[0]);
         break;
         case TANGENTE:
-            printf("TU FUNCION: tan(%2lfx)\n",funcion->valores[0]);
+            printf("TU FUNCION: tan(%gx)\n",funcion->valores[0]);
         break;
     }
     return false;
@@ -164,7 +164,7 @@ double obtenerX(){
 }
 void mostrarResultadoCalculoX(double x,double resultado){
     refrescoPantalla();
-    printf("F( %2lf ) = %2lf \n",x,resultado);
+    printf("F( %g ) = %g \n",x,resultado);
     printf("PULSE ENTER PARA CONTINUAR");
     esperaEnter(true);
 }
@@ -179,25 +179,25 @@ bool mostrarResultadoObtenerIgual0(double* x,Funcion *funcion){
             case POLINOMIO:
                 switch(funcion->cantidadvalores){
                     case 2:
-                        printf("F(%2lf)=0\n",x[0]);
+                        printf("F(%g)=0\n",x[0]);
                     break;
                     case 3:
-                        printf("F(%2lf)=0\n",x[0]);
-                        printf("F(%2lf)=0\n",x[1]);
+                        printf("F(%g)=0\n",x[0]);
+                        printf("F(%g)=0\n",x[1]);
                     break;
                 }
             break;
             case LOGARITMO:
-                printf("F(%2lf)=0\n",x[0]);
+                printf("F(%g)=0\n",x[0]);
             break;
             case COSENO:
-                printf("F(%2lf)=0\n",x[0]);
+                printf("F(%g)=0\n",x[0]);
             break;
             case SENO:
-                printf("F(%2lf)=0\n",x[0]);
+                printf("F(%g)=0\n",x[0]);
             break;
             case TANGENTE:
-                printf("F(%2lf)=0\n",x[0]);
+                printf("F(%g)=0\n",x[0]);
             break;
         }
         printf("PULSE ENTER PARA CONTINUAR");
