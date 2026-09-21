@@ -55,8 +55,8 @@ double* calculoValorIgual0(Funcion *funcion){
             case 3:
                 if (funcion->valores[0]!=0){
                     static double resultado2[2];
-                    resultado2[0]=(-funcion->valores[1]+sqrt(pow(2,funcion->valores[1])-4*funcion->valores[2]*funcion->valores[0]))/(2*funcion->valores[0]);
-                    resultado2[1]=(-funcion->valores[1]-sqrt(pow(2,funcion->valores[1])-4*funcion->valores[2]*funcion->valores[0]))/(2*funcion->valores[0]);
+                    resultado2[0]=(-funcion->valores[1]+sqrt(pow(funcion->valores[1],2)-4*funcion->valores[2]*funcion->valores[0]))/(2*funcion->valores[0]);
+                    resultado2[1]=(-funcion->valores[1]-sqrt(pow(funcion->valores[1],2)-4*funcion->valores[2]*funcion->valores[0]))/(2*funcion->valores[0]);
                     return resultado2;
                 }
                 else{
@@ -103,34 +103,34 @@ bool calculoDerivada(Funcion *funcion){
             switch (funcion->cantidadvalores){
                 case 2:
                     refrescoPantalla();
-                    printf("F'(X)= %lf",funcion->valores[0]);
+                    printf("F'(X)= %g",funcion->valores[0]);
                 break;
                 case 3:
                     refrescoPantalla();
                     double valor=funcion->valores[0]*2;
-                    printf("F'(X)= %lfx + %lf",valor,funcion->valores[1]);
+                    printf("F'(X)= %gx + %g",valor,funcion->valores[1]);
                 break;
             }
         break;
         case EXPONENCIAL:
             refrescoPantalla();
-            printf("F'(X)= (%lf^x)*ln(%lf)",funcion->valores[0],funcion->valores[0]);
+            printf("F'(X)= (%g^x)*ln(%g)",funcion->valores[0],funcion->valores[0]);
         break;
         case LOGARITMO:
             refrescoPantalla();
-            printf("F'(X)=1/(x*ln(%lf))",funcion->valores[0]);
+            printf("F'(X)=1/(x*ln(%g))",funcion->valores[0]);
         break;
         case SENO:
             refrescoPantalla();
-            printf("F'(X)=%lf*cos(%lfx)",funcion->valores[0],funcion->valores[0]);
+            printf("F'(X)=%g*cos(%gx)",funcion->valores[0],funcion->valores[0]);
         break;
         case COSENO:
             refrescoPantalla();
-            printf("F'(X)=-%lf*sin(%lfx)",funcion->valores[0],funcion->valores[0]);
+            printf("F'(X)=-%g*sin(%gx)",funcion->valores[0],funcion->valores[0]);
         break;
         case TANGENTE:
             refrescoPantalla();
-            printf("F'(X)=%lf*sec^2(%lfx)",funcion->valores[0],funcion->valores[0]);
+            printf("F'(X)=%g*sec^2(%gx)",funcion->valores[0],funcion->valores[0]);
         break;
     }
     printf("\n");
