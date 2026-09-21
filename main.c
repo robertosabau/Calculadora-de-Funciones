@@ -59,7 +59,7 @@ double obtenerAtributoB(){
 }
 double obtenerAtributoC(){
     buscarAtributoC();
-    double numero=lecturaFlotante(buscarAtributoB);
+    double numero=lecturaFlotante(buscarAtributoC);
     return numero;
 }
 bool menuSeleccionFuncion(){
