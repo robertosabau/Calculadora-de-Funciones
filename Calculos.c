@@ -136,3 +136,45 @@ bool calculoDerivada(Funcion *funcion){
     printf("\n");
     return false;
 }
+bool calculoIntegral(Funcion *funcion){
+    if (funcion==NULL){
+        errorPuntero();
+        return true;
+    }
+    switch(funcion->tipo){
+        case POLINOMIO:
+            switch (funcion->cantidadvalores){
+                case 2:
+                    refrescoPantalla();
+                    printf("F(X)=((%gx^2)/2) + %gx + C",funcion->valores[0],funcion->valores[1]);
+                break;
+                case 3:
+                    refrescoPantalla();
+                    printf("F(X)=((%gx^3)/3) + ((%gx^2)/2) + %gx + C",funcion->valores[0],funcion->valores[1],funcion->valores[2]);
+                break;
+            }
+        break;
+        case EXPONENCIAL:
+            refrescoPantalla();
+            printf("F(X)=((%g^x)/ln(%g)) + C",funcion->valores[0],funcion->valores[0]);
+        break;
+        case LOGARITMO:
+            refrescoPantalla();
+            printf("F(X)=x*log_%g(x) - (x/ln(%g)) + C",funcion->valores[0],funcion->valores[0]);
+        break;
+        case SENO:
+            refrescoPantalla();
+            printf("F(X)=-(1/%g)*cos(%gx) + C",funcion->valores[0],funcion->valores[0]);
+        break;
+        case COSENO:
+            refrescoPantalla();
+            printf("F(X)=(1/%g)*sin(%gx) + C",funcion->valores[0],funcion->valores[0]);
+        break;
+        case TANGENTE:
+            refrescoPantalla();
+            printf("F(X)=-(1/%g)*ln|cos(%gx)| + C",funcion->valores[0],funcion->valores[0]);
+        break;
+    }
+    printf("\n");
+    return false;
+}

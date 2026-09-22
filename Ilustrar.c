@@ -145,7 +145,8 @@ void opcionesMenuFuncion(Funcion *funcion){
     printf("1. CALCULAR VALOR X \n");
     printf("2. CALCULAR F(X)=0 \n");
     printf("3. CALCULAR DERIVADA \n");
-    printf("4. GUARDAR FUNCION\n");
+    printf("4. CALCULAR INTEGRAL\n");
+    printf("5. GUARDAR FUNCION\n");
     printf("0. REGRESAR AL MENU PRINCIPAL\n");
 }
 double obtenerX(){
@@ -164,7 +165,7 @@ double obtenerX(){
 }
 void mostrarResultadoCalculoX(double x,double resultado){
     refrescoPantalla();
-    printf("F( %g ) = %g \n",x,resultado);
+    printf("f( %g ) = %g \n",x,resultado);
     printf("PULSE ENTER PARA CONTINUAR");
     esperaEnter(true);
 }
@@ -179,25 +180,25 @@ bool mostrarResultadoObtenerIgual0(double* x,Funcion *funcion){
             case POLINOMIO:
                 switch(funcion->cantidadvalores){
                     case 2:
-                        printf("F(%g)=0\n",x[0]);
+                        printf("f(%g)=0\n",x[0]);
                     break;
                     case 3:
-                        printf("F(%g)=0\n",x[0]);
-                        printf("F(%g)=0\n",x[1]);
+                        printf("f(%g)=0\n",x[0]);
+                        printf("f(%g)=0\n",x[1]);
                     break;
                 }
             break;
             case LOGARITMO:
-                printf("F(%g)=0\n",x[0]);
+                printf("f(%g)=0\n",x[0]);
             break;
             case COSENO:
-                printf("F(%g)=0\n",x[0]);
+                printf("f(%g)=0\n",x[0]);
             break;
             case SENO:
-                printf("F(%g)=0\n",x[0]);
+                printf("f(%g)=0\n",x[0]);
             break;
             case TANGENTE:
-                printf("F(%g)=0\n",x[0]);
+                printf("f(%g)=0\n",x[0]);
             break;
         }
         printf("PULSE ENTER PARA CONTINUAR");
