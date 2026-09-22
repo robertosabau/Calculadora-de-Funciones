@@ -282,6 +282,13 @@ bool menuFuncion(Funcion *funcion){
                     esperaEnter(true);
                 break;
                 case 4:
+                    if (calculoIntegral(funcion)){
+                        return true;
+                    }
+                    printf("PULSE ENTER PARA CONTINUAR");
+                    esperaEnter(true);
+                break;
+                case 5:
                     GuardarFuncion(funcion);
                 break;
                 default:
