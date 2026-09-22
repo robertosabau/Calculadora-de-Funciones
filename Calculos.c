@@ -103,34 +103,34 @@ bool calculoDerivada(Funcion *funcion){
             switch (funcion->cantidadvalores){
                 case 2:
                     refrescoPantalla();
-                    printf("F'(X)= %g",funcion->valores[0]);
+                    printf("f'(X)= %g",funcion->valores[0]);
                 break;
                 case 3:
                     refrescoPantalla();
                     double valor=funcion->valores[0]*2;
-                    printf("F'(X)= %gx + %g",valor,funcion->valores[1]);
+                    printf("f'(X)= %gx + %g",valor,funcion->valores[1]);
                 break;
             }
         break;
         case EXPONENCIAL:
             refrescoPantalla();
-            printf("F'(X)= (%g^x)*ln(%g)",funcion->valores[0],funcion->valores[0]);
+            printf("f'(X)= (%g^x)*ln(%g)",funcion->valores[0],funcion->valores[0]);
         break;
         case LOGARITMO:
             refrescoPantalla();
-            printf("F'(X)=1/(x*ln(%g))",funcion->valores[0]);
+            printf("f'(X)=1/(x*ln(%g))",funcion->valores[0]);
         break;
         case SENO:
             refrescoPantalla();
-            printf("F'(X)=%g*cos(%gx)",funcion->valores[0],funcion->valores[0]);
+            printf("f'(X)=%g*cos(%gx)",funcion->valores[0],funcion->valores[0]);
         break;
         case COSENO:
             refrescoPantalla();
-            printf("F'(X)=-%g*sin(%gx)",funcion->valores[0],funcion->valores[0]);
+            printf("f'(X)=-%g*sin(%gx)",funcion->valores[0],funcion->valores[0]);
         break;
         case TANGENTE:
             refrescoPantalla();
-            printf("F'(X)=%g*sec^2(%gx)",funcion->valores[0],funcion->valores[0]);
+            printf("f'(X)=%g*sec^2(%gx)",funcion->valores[0],funcion->valores[0]);
         break;
     }
     printf("\n");
