@@ -23,7 +23,7 @@ Ya en el **Menú de la función** podrías realizar **2 acciones principales**:
    * 1 Grado: `aX + b`
    * 2 Grado: `aX² + bx + c`
 2. **Exponencial:** `aⁿ`
-3. **Logartimo** `log\342\202\220(x)`
+3. **Logartimo** `logₐ(x)`
 4. **Trigonometrica:**
    * Seno: `sin(ax)`
    * Coseno: `cos(ax)`
