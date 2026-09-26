@@ -1,6 +1,8 @@
 #ifndef ILUSTRAR_H
 #define ILUSTRAR_H
 #include "funcion.h"
+    //Configurar la consola de comandos para funcionar en UTF-8
+    void configurarConsola();   
     //Limpieza consola de comandos
     void refrescoPantalla(void);
     //Mostrar que la opcion no es correcta

@@ -332,6 +332,7 @@ bool GuardarFuncion(Funcion *funcion){
     }
 }
 int main(){
+    configurarConsola();
     while(true){
         menuPrincipal();
         int seleccion=lecturaEntero(menuPrincipal);

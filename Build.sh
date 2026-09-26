@@ -1,5 +1,5 @@
 #!/bin/bash
-gcc *.c -o calculadora -lm
+gcc *.c -o calculadora -lm -finput-charset=UTF-8 -fexec-charset=UTF-8
 if [ $? -eq 0 ]; then
     echo "Programa compilado con exito."
 else
