@@ -5,6 +5,11 @@
 #include "Ilustrar.h"
 #include "funcion.h"
 #include "Lecturas.h"
+#ifdef _WIN32
+#define RUTA_SAVES "saves\\"  // Windows usa doble barra para escapar el carácter
+#else
+#define RUTA_SAVES "saves/"   // Linux y macOS usan la barra normal
+#endif
 
 bool guardarFuncion(Funcion *funcion, char* nombre){
     const char* extension=".bin";
@@ -12,7 +17,8 @@ bool guardarFuncion(Funcion *funcion, char* nombre){
     if (nombre_completo==NULL){
         return false;
     }
-    strcpy(nombre_completo, nombre);
+    strcpy(nombre_completo,RUTA_SAVES);
+    strcat(nombre_completo, nombre);
     strcat(nombre_completo, extension);
     printf("PROBANDO NUEVO CODIGO:: %d\n", funcion->cantidadvalores);
     FILE *archivo=fopen(nombre_completo,"wb");
@@ -39,7 +45,8 @@ Funcion cargarFuncion(char* nombre){
         funcion.valores=NULL;
         return funcion;
     }
-    strcpy(nombre_completo, nombre);
+    strcpy(nombre_completo,RUTA_SAVES);
+    strcat(nombre_completo, nombre);
     strcat(nombre_completo, extension);
     FILE *archivo=fopen(nombre_completo,"rb");
     if (archivo==NULL){

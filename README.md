@@ -21,9 +21,9 @@ Ya en el **Menú de la función** podrías realizar **2 acciones principales**:
 
 1. **Polinómicas:**
    * 1 Grado: `aX + b`
-   * 2 Grado: `aX^2 + bx + c`
-2. **Exponencial:** `a^x`
-3. **Logartimo** `log_a(x)`
+   * 2 Grado: `aX² + bx + c`
+2. **Exponencial:** `aⁿ`
+3. **Logartimo** `log\342\202\220(x)`
 4. **Trigonometrica:**
    * Seno: `sin(ax)`
    * Coseno: `cos(ax)`

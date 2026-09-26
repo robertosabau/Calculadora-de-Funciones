@@ -2,11 +2,26 @@
 #include <stdlib.h>
 #include <math.h>
 #include <dirent.h>
+#ifdef _WIN32
+#include <windows.h>
+#include <fcntl.h>
+#include <io.h>
+#endif
+#include <locale.h>
 #include "funcion.h"
+#include "Conversor.h"
 
-const char* version="1.1.0";
+const char* version="1.2.0";
 
 extern void esperaEnter(bool limpiar);
+
+void configurarConsola(){
+    #ifdef _WIN32
+    SetConsoleOutputCP(65001);
+    SetConsoleCP(65001);
+    #endif
+    //setlocale(LC_ALL, "");
+}
 
 void refrescoPantalla(){
     //Windows
@@ -87,15 +102,17 @@ bool dibujarFuncion(Funcion *funcion){
                 printf("TU FUNCION: %gx + %g\n",funcion->valores[0],funcion->valores[1]);
                 break;
             case 3:
-                printf("TU FUNCION: %gx^2 + %gx + %g\n",funcion->valores[0],funcion->valores[1],funcion->valores[2]);
+                printf(u8"TU FUNCION: %gx² + %gx + %g\n",funcion->valores[0],funcion->valores[1],funcion->valores[2]);
                 break;
             }
         break;
         case EXPONENCIAL:
-            printf("TU FUNCION: %g^x\n",funcion->valores[0]);
+            printf("TU FUNCION: %gⁿ\n",funcion->valores[0]);
         break;
         case LOGARITMO:
-            printf("TU FUNCION: log%g(x)\n",funcion->valores[0]);
+            char subIndice[128];
+            convertirASubindice(funcion->valores[0],subIndice);
+            printf("TU FUNCION: log%s(x)\n",subIndice);
         break;
         case SENO:
             printf("TU FUNCION: sin(%gx)\n",funcion->valores[0]);
@@ -118,15 +135,15 @@ void dibujarFuncion2(TipoFuncion tipo, int grado){
                 printf("TU FUNCION: aX + b\n");
                 break;
             case 2:
-                printf("TU FUNCION: ax^2 + bx + c\n");
+                printf("TU FUNCION: ax² + bx + c\n");
                 break;
             }
         break;
         case EXPONENCIAL:
-            printf("TU FUNCION: a^x\n");
+            printf("TU FUNCION: aⁿ\n");
         break;
         case LOGARITMO:
-            printf("TU FUNCION: log_a(x)\n");
+            printf("TU FUNCION: log\342\202\220(x)\n");
         break;
         case SENO:
             printf("TU FUNCION: sin(ax)\n");
