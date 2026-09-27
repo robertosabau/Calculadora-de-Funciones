@@ -107,7 +107,7 @@ bool dibujarFuncion(Funcion *funcion){
             }
         break;
         case EXPONENCIAL:
-            printf("TU FUNCION: %gⁿ\n",funcion->valores[0]);
+            printf("TU FUNCION: %gˣ\n",funcion->valores[0]);
         break;
         case LOGARITMO:
             char subIndice[128];
@@ -140,7 +140,7 @@ void dibujarFuncion2(TipoFuncion tipo, int grado){
             }
         break;
         case EXPONENCIAL:
-            printf("TU FUNCION: aⁿ\n");
+            printf("TU FUNCION: aˣ\n");
         break;
         case LOGARITMO:
             printf("TU FUNCION: log\342\202\220(x)\n");
