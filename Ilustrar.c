@@ -11,7 +11,7 @@
 #include "funcion.h"
 #include "Conversor.h"
 
-const char* version="1.2.0";
+const char* version="1.2.1";
 
 extern void esperaEnter(bool limpiar);
 
