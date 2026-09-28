@@ -1,6 +1,7 @@
 #include <string.h>
 #include <stdio.h>
 #include "Constantes.h"
+#include "funcion.h"
 
 void convertirASubindice(double numero,char* resultado){
     char buffer[32];
@@ -31,5 +32,65 @@ void convertirASubindice(double numero,char* resultado){
                 resultado[len+1] = '\0';
                 break;
         }
+    }
+}
+void convertirATexto(Funcion *funcion,char* resultado){
+    char buffer[32];
+    resultado[0] = '\0';
+    switch (funcion->tipo)
+    {
+        case POLINOMIO:
+            switch (funcion->cantidadvalores){
+                case 2:
+                break;
+                case 3:
+                break;
+            }
+        break;
+        case EXPONENCIAL:
+            if (funcion->valores[0]==PI){
+                strcat(resultado,"πˣ");
+            }
+            else{
+                if (funcion->valores[0]==EULER){
+                    strcat(resultado,"eˣ");
+                }
+                else{
+                    sprintf(buffer, "%g", funcion->valores[0]);
+                    concatenarNumeros(buffer,resultado);
+                    strcat(resultado,"ˣ");
+
+                }
+            }
+        break;
+        case LOGARITMO:
+            if (funcion->valores[0]==EULER){
+                strcat(resultado,"ln(x)");
+            }
+            else{
+                if (funcion->valores[0]==PI){
+                strcat(resultado,"log_π(x)");
+                }
+                else{
+                    char resul[128];
+                    convertirASubindice(funcion->valores[0],resul);
+                    strcat(resultado,"log");
+                    strcat(resultado,resul);
+                    strcat(resultado,"(x)");
+                }
+            }
+        break;
+        case SENO:
+        break;
+        case COSENO:
+        break;
+        case TANGENTE:
+            
+        break;
+    }
+}
+void concatenarNumeros(char*buffer,char*resultado){
+    for (int i=0;buffer[i]!='\0';i++){
+        strcat(resultado,buffer[i]);
     }
 }
