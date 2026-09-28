@@ -1,7 +1,63 @@
 #include <string.h>
 #include <stdio.h>
+#include <stdbool.h>
 #include "Constantes.h"
 #include "funcion.h"
+
+void concatenarNumeros(char*buffer,char*resultado){
+    for (int i=0;buffer[i]!='\0';i++){
+        char caracter_temporal[2] = {buffer[i], '\0'};
+        strcat(resultado,caracter_temporal);
+    }
+}
+bool concatenarNumeroConLogica(Funcion *funcion,char*resultado,int pos,bool x){
+    if (funcion == NULL && resultado == NULL) {
+    return false;
+    }
+    if(funcion->valores[pos]==0){
+        return false;
+    }
+    if(funcion->valores[pos]==1&&x){
+        return true;
+    }
+    int i=pos-1;
+    bool vacio=true;
+    while (i>=0&&vacio){
+        if (funcion->valores[i]!=0){
+            vacio=false;
+        }
+        i--;
+    }
+    double num=funcion->valores[pos];
+    if(!vacio){
+        if(funcion->valores[pos]>0){
+            strcat(resultado,"+ ");
+        }
+        else{
+            strcat(resultado,"- ");
+            num=num*-1;
+        }
+    }
+    else{
+        if (funcion->valores[pos]<0){
+            num=num*-1;
+        }
+    }
+    if(funcion->valores[pos]==PI){
+        strcat(resultado,"π");
+        return true;
+    }
+    else{
+        if(funcion->valores[pos]==EULER){
+            strcat(resultado,"e");
+            return true;
+        }
+    }
+    char resul[32];
+    sprintf(resul, "%g", num);
+    concatenarNumeros(resul,resultado);
+    return true;
+}
 
 void convertirASubindice(double numero,char* resultado){
     char buffer[32];
@@ -34,7 +90,7 @@ void convertirASubindice(double numero,char* resultado){
         }
     }
 }
-void convertirATexto(Funcion *funcion,char* resultado){
+void convertirFuncionATexto(Funcion *funcion,char* resultado){
     char buffer[32];
     resultado[0] = '\0';
     switch (funcion->tipo)
@@ -42,8 +98,19 @@ void convertirATexto(Funcion *funcion,char* resultado){
         case POLINOMIO:
             switch (funcion->cantidadvalores){
                 case 2:
+                    if(concatenarNumeroConLogica(funcion,resultado,0,true)){
+                        strcat(resultado,"x ");
+                    }
+                    concatenarNumeroConLogica(funcion,resultado,1,false);
                 break;
                 case 3:
+                    if(concatenarNumeroConLogica(funcion,resultado,0,true)){
+                        strcat(resultado,"x² ");
+                    }
+                    if(concatenarNumeroConLogica(funcion,resultado,1,true)){
+                        strcat(resultado,"x ");
+                    }
+                    concatenarNumeroConLogica(funcion,resultado,2,false);
                 break;
             }
         break;
@@ -81,16 +148,52 @@ void convertirATexto(Funcion *funcion,char* resultado){
             }
         break;
         case SENO:
+            if (funcion->valores[0]==EULER){
+                    strcat(resultado,"sin(ex)");
+                }
+                else{
+                    if (funcion->valores[0]==PI){
+                    strcat(resultado,"sin(πx)");
+                    }
+                    else{
+                        sprintf(buffer, "%g", funcion->valores[0]);
+                        strcat(resultado,"sin(");
+                        concatenarNumeros(buffer,resultado);
+                        strcat(resultado,"x)");
+                    }
+                }
         break;
         case COSENO:
+                if (funcion->valores[0]==EULER){
+                    strcat(resultado,"cos(ex)");
+                }
+                else{
+                    if (funcion->valores[0]==PI){
+                    strcat(resultado,"cos(πx)");
+                    }
+                    else{
+                        sprintf(buffer, "%g", funcion->valores[0]);
+                        strcat(resultado,"cos(");
+                        concatenarNumeros(buffer,resultado);
+                        strcat(resultado,"x)");
+                    }
+                }
         break;
         case TANGENTE:
-            
+                if (funcion->valores[0]==EULER){
+                    strcat(resultado,"tan(ex)");
+                }
+                else{
+                    if (funcion->valores[0]==PI){
+                    strcat(resultado,"tan(πx)");
+                    }
+                    else{
+                        sprintf(buffer, "%g", funcion->valores[0]);
+                        strcat(resultado,"tan(");
+                        concatenarNumeros(buffer,resultado);
+                        strcat(resultado,"x)");
+                    }
+                }
         break;
-    }
-}
-void concatenarNumeros(char*buffer,char*resultado){
-    for (int i=0;buffer[i]!='\0';i++){
-        strcat(resultado,buffer[i]);
     }
 }

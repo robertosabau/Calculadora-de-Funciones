@@ -95,35 +95,9 @@ bool dibujarFuncion(Funcion *funcion){
         errorPuntero();
         return true;
     }
-    switch (funcion->tipo){
-        case POLINOMIO:
-            switch (funcion->cantidadvalores){
-            case 2:
-                printf("TU FUNCION: %gx + %g\n",funcion->valores[0],funcion->valores[1]);
-                break;
-            case 3:
-                printf(u8"TU FUNCION: %gx² + %gx + %g\n",funcion->valores[0],funcion->valores[1],funcion->valores[2]);
-                break;
-            }
-        break;
-        case EXPONENCIAL:
-            printf("TU FUNCION: %gˣ\n",funcion->valores[0]);
-        break;
-        case LOGARITMO:
-            char subIndice[128];
-            convertirASubindice(funcion->valores[0],subIndice);
-            printf("TU FUNCION: log%s(x)\n",subIndice);
-        break;
-        case SENO:
-            printf("TU FUNCION: sin(%gx)\n",funcion->valores[0]);
-        break;
-        case COSENO:
-            printf("TU FUNCION: cos(%gx)\n",funcion->valores[0]);
-        break;
-        case TANGENTE:
-            printf("TU FUNCION: tan(%gx)\n",funcion->valores[0]);
-        break;
-    }
+    char funct[100];
+    convertirFuncionATexto(funcion,funct);
+    printf("TU FUNCIÓN: %s\n",funct);
     return false;
 }
 void dibujarFuncion2(TipoFuncion tipo, int grado){
