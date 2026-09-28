@@ -1,5 +1,6 @@
 #include <string.h>
 #include <stdio.h>
+#include "Constantes.h"
 
 void convertirASubindice(double numero,char* resultado){
     char buffer[32];
