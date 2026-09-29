@@ -213,7 +213,7 @@ void errorCargar(){
 }
 void cargadoCorrecto(){
     refrescoPantalla();
-    printf("EL CARHADO HA SALIDO CORRECTAMENTE");
+    printf("EL CARGADO HA SALIDO CORRECTAMENTE");
     esperaEnter(false);
 }
 void menuGuardarFuncion(){
