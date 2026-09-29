@@ -36,9 +36,16 @@ bool concatenarNumeroConLogica(Funcion *funcion,char*resultado,int pos,bool x){
         else{
             strcat(resultado,"- ");
             num=num*-1;
+            if (funcion->valores[pos]==-1&&x){
+                return true;
+            }
         }
     }
     else{
+        if (funcion->valores[pos]==-1){
+            strcat(resultado,"- ");
+            return true;
+        }
         if (funcion->valores[pos]<0){
             num=num*-1;
         }
@@ -126,7 +133,6 @@ void convertirFuncionATexto(Funcion *funcion,char* resultado){
                     sprintf(buffer, "%g", funcion->valores[0]);
                     concatenarNumeros(buffer,resultado);
                     strcat(resultado,"ˣ");
-
                 }
             }
         break;
@@ -156,10 +162,20 @@ void convertirFuncionATexto(Funcion *funcion,char* resultado){
                     strcat(resultado,"sin(πx)");
                     }
                     else{
-                        sprintf(buffer, "%g", funcion->valores[0]);
-                        strcat(resultado,"sin(");
-                        concatenarNumeros(buffer,resultado);
-                        strcat(resultado,"x)");
+                        if (funcion->valores[0]==-EULER){
+                        strcat(resultado,"sin(-ex)");
+                        }
+                        else{
+                            if (funcion->valores[0]==-PI){
+                            strcat(resultado,"sin(-πx)");
+                            }
+                            else{
+                                sprintf(buffer, "%g", funcion->valores[0]);
+                                strcat(resultado,"sin(");
+                                concatenarNumeros(buffer,resultado);
+                                strcat(resultado,"x)");
+                            }
+                        }
                     }
                 }
         break;
@@ -172,10 +188,20 @@ void convertirFuncionATexto(Funcion *funcion,char* resultado){
                     strcat(resultado,"cos(πx)");
                     }
                     else{
-                        sprintf(buffer, "%g", funcion->valores[0]);
-                        strcat(resultado,"cos(");
-                        concatenarNumeros(buffer,resultado);
-                        strcat(resultado,"x)");
+                        if (funcion->valores[0]==-EULER){
+                        strcat(resultado,"cos(-ex)");
+                        }
+                        else{
+                            if (funcion->valores[0]==-PI){
+                            strcat(resultado,"cos(-πx)");
+                            }
+                            else{
+                                sprintf(buffer, "%g", funcion->valores[0]);
+                                strcat(resultado,"cos(");
+                                concatenarNumeros(buffer,resultado);
+                                strcat(resultado,"x)");
+                            }
+                        }
                     }
                 }
         break;
@@ -188,10 +214,20 @@ void convertirFuncionATexto(Funcion *funcion,char* resultado){
                     strcat(resultado,"tan(πx)");
                     }
                     else{
-                        sprintf(buffer, "%g", funcion->valores[0]);
-                        strcat(resultado,"tan(");
-                        concatenarNumeros(buffer,resultado);
-                        strcat(resultado,"x)");
+                        if (funcion->valores[0]==-EULER){
+                        strcat(resultado,"tan(-ex)");
+                        }
+                        else{
+                            if (funcion->valores[0]==-PI){
+                            strcat(resultado,"sin(-πx)");
+                            }
+                            else{
+                                sprintf(buffer, "%g", funcion->valores[0]);
+                                strcat(resultado,"tan(");
+                                concatenarNumeros(buffer,resultado);
+                                strcat(resultado,"x)");
+                            }
+                        }
                     }
                 }
         break;
