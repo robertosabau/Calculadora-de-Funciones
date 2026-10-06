@@ -46,10 +46,6 @@ bool concatenarNumeroConLogica(Funcion *funcion,char*resultado,int pos,bool x){
             strcat(resultado,"- ");
             return true;
         }
-        if (funcion->valores[pos]<0){
-            strcat(resultado,"- ");
-            num=num*-1;
-        }
     }
     if(funcion->valores[pos]==PI||funcion->valores[pos]==-PI){
         strcat(resultado,"π");
@@ -90,6 +86,37 @@ void convertirASubindice(double numero,char* resultado){
             case '9': strcat(resultado, "\342\202\209"); break; // ₉
             case '-': strcat(resultado, "\342\202\213"); break; // ₋
             case '.': strcat(resultado, "\342\200\244"); break; 
+            default: 
+                int len = strlen(resultado);
+                resultado[len] = buffer[i];
+                resultado[len+1] = '\0';
+                break;
+        }
+    }
+}
+void convertirASuperindice(double numero,char* resultado){
+    char buffer[32];
+    // Convertimos el double a texto normal usando %g para omitir ceros finales
+    sprintf(buffer, "%g", numero);
+    
+    // Vaciamos la cadena de destino
+    resultado[0] = '\0';
+    
+    // Recorremos cada carácter del número normal y añadimos su byte octal correspondiente
+    for (int i = 0; buffer[i] != '\0'; i++) {
+        switch (buffer[i]) {
+            case '0': strcat(resultado, "\342\201\260"); break; // ⁰
+            case '1': strcat(resultado, "\302\271");     break; // ¹
+            case '2': strcat(resultado, "\302\262");     break; // ²
+            case '3': strcat(resultado, "\302\263");     break; // ³
+            case '4': strcat(resultado, "\342\201\264"); break; // ⁴
+            case '5': strcat(resultado, "\342\201\265"); break; // ⁵
+            case '6': strcat(resultado, "\342\201\266"); break; // ⁶
+            case '7': strcat(resultado, "\342\201\267"); break; // ⁷
+            case '8': strcat(resultado, "\342\201\270"); break; // ⁸
+            case '9': strcat(resultado, "\342\201\271"); break; // ⁹
+            case '-': strcat(resultado, "\342\201\273"); break; // ⁻
+            case '.': strcat(resultado, "\302\267"); break;     // · 
             default: 
                 int len = strlen(resultado);
                 resultado[len] = buffer[i];
@@ -176,7 +203,6 @@ void convertirFuncionATexto(Funcion *funcion,char* resultado){
     }
 }
 void convertirDerivadaATexto(Funcion *funcion,char *resultado){
-    char buffer[32];
     resultado[0] = '\0';
     switch (funcion->tipo){
         case POLINOMIO:
@@ -220,8 +246,6 @@ void convertirDerivadaATexto(Funcion *funcion,char *resultado){
                 strcat(resultado,"¹/ₓ");
             }
             else{
-                char resul[128];
-                convertirASubindice(funcion->valores[0],resul);
                 strcat(resultado,"¹/(x · ln(");
                 if(concatenarNumeroConLogica(funcion,resultado,0,true)){
                     strcat(resultado,"))");
@@ -232,7 +256,7 @@ void convertirDerivadaATexto(Funcion *funcion,char *resultado){
                 }
         break;
         case SENO:
-            if(concatenarNumeroConLogica(funcion,buffer,0,true)){
+            if(concatenarNumeroConLogica(funcion,resultado,0,true)){
                 strcat(resultado,"cos(");
                 if(concatenarNumeroConLogica(funcion,resultado,0,true)){
                     strcat(resultado,"x)");
@@ -259,7 +283,138 @@ void convertirDerivadaATexto(Funcion *funcion,char *resultado){
             }
         break;
         case TANGENTE:
-            if(concatenarNumeroConLogica(funcion,buffer,0,true)){
+            if(concatenarNumeroConLogica(funcion,resultado,0,true)){
+                strcat(resultado,"sec²(");
+                if(concatenarNumeroConLogica(funcion,resultado,0,true)){
+                    strcat(resultado,"x)");
+                }
+                else{
+                    resultado[0]='\0';
+                }
+            }
+        break;
+    }
+}
+void convertirIntegralATexto(Funcion *funcion,char *resultado){
+    resultado[0] = '\0';
+    switch (funcion->tipo){
+        case POLINOMIO:
+            switch (funcion->cantidadvalores){
+                case 2:
+                    double num=funcion->valores[0]/2;
+                    if (fmod(num, 1.0) == 0.0){
+                        Funcion fuct;
+                        fuct.cantidadvalores=funcion->cantidadvalores;
+                        fuct.tipo=funcion->tipo;
+                        fuct.valores=&num;
+                        concatenarNumeroConLogica(&fuct,resultado,0,true);
+                    }
+                    else{
+                        convertirASuperindice(funcion->valores[0],resultado);
+                        strcat(resultado,"/₂");
+                    }
+                    strcat(resultado,"x² ");
+                    concatenarNumeroConLogica(funcion,resultado,1,true);
+                    strcat(resultado,"x + C");
+                break;
+                case 3:
+                    double num=funcion->valores[0]/3;
+                    if (fmod(num, 1.0) == 0.0){
+                        Funcion fuct;
+                        fuct.cantidadvalores=funcion->cantidadvalores;
+                        fuct.tipo=funcion->tipo;
+                        fuct.valores=&num;
+                        concatenarNumeroConLogica(&fuct,resultado,0,true);
+                    }
+                    else{
+                        convertirASuperindice(funcion->valores[0],resultado);
+                        strcat(resultado,"/₃");
+                    }
+                    strcat(resultado,"x³ ");
+                    num=funcion->valores[0]/2;
+                    if (fmod(num, 1.0) == 0.0){
+                        Funcion fuct;
+                        fuct.cantidadvalores=funcion->cantidadvalores;
+                        fuct.tipo=funcion->tipo;
+                        fuct.valores=&num;
+                        concatenarNumeroConLogica(&fuct,resultado,0,true);
+                    }
+                    else{
+                        convertirASuperindice(funcion->valores[0],resultado);
+                        strcat(resultado,"/₂");
+                    }
+                    strcat(resultado,"x² ");
+                    concatenarNumeroConLogica(funcion,resultado,1,true);
+                    strcat(resultado,"x + C");
+                break;
+            }
+        break;
+        case EXPONENCIAL:
+            if (funcion->valores[0]==EULER){
+                strcat(resultado,"eˣ");
+            }
+            else{
+                if (funcion->valores[0]==-EULER){
+                    strcat(resultado,"-eˣ");
+                }
+                else{
+                    if (concatenarNumeroConLogica(funcion,resultado,0,true)){
+                        strcat(resultado,"ˣ");
+                        strcat(resultado," · ");
+                        strcat(resultado,"ln(");
+                        if (concatenarNumeroConLogica(funcion,resultado,0,true)){
+                            strcat(resultado,")");
+                        }
+                        else{
+                            resultado[0]='\0';
+                        }
+                    }
+                }
+            }
+        break;
+        case LOGARITMO:
+            if (funcion->valores[0]==EULER){
+                strcat(resultado,"¹/ₓ");
+            }
+            else{
+                strcat(resultado,"¹/(x · ln(");
+                if(concatenarNumeroConLogica(funcion,resultado,0,true)){
+                    strcat(resultado,"))");
+                }
+                else{
+                    resultado[0]='\0';
+                }
+                }
+        break;
+        case SENO:
+            if(concatenarNumeroConLogica(funcion,resultado,0,true)){
+                strcat(resultado,"cos(");
+                if(concatenarNumeroConLogica(funcion,resultado,0,true)){
+                    strcat(resultado,"x)");
+                }
+                else{
+                    resultado[0]='\0';
+                }
+            }
+        break;
+        case COSENO:
+            double numero=funcion->valores[0]*-1;
+            Funcion funcioninverso;
+            funcioninverso.cantidadvalores=funcion->cantidadvalores;
+            funcioninverso.tipo=funcion->tipo;
+            funcioninverso.valores=&numero;
+            if(concatenarNumeroConLogica(&funcioninverso,resultado,0,true)){
+                strcat(resultado,"sin(");
+                if(concatenarNumeroConLogica(funcion,resultado,0,true)){
+                    strcat(resultado,"x)");
+                }
+                else{
+                    resultado[0]='\0';
+                }
+            }
+        break;
+        case TANGENTE:
+            if(concatenarNumeroConLogica(funcion,resultado,0,true)){
                 strcat(resultado,"sec²(");
                 if(concatenarNumeroConLogica(funcion,resultado,0,true)){
                     strcat(resultado,"x)");
