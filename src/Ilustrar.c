@@ -97,7 +97,7 @@ bool dibujarFuncion(Funcion *funcion){
     }
     char funct[100];
     convertirFuncionATexto(funcion,funct);
-    printf("TU FUNCIÓN: %s\n",funct);
+    printf("f(x)= %s\n",funct);
     return false;
 }
 void dibujarFuncion2(TipoFuncion tipo, int grado){

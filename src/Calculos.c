@@ -1,8 +1,11 @@
 #include <math.h>
 #include <stdio.h>
+#include <stdlib.h>
 #include <float.h>
+#include <string.h>
 #include "funcion.h"
 #include "Ilustrar.h"
+#include "Conversor.h"
 
 double calculoValorX(double x,Funcion *funcion){
     if (funcion==NULL){
@@ -98,42 +101,12 @@ bool calculoDerivada(Funcion *funcion){
         errorPuntero();
         return true;
     }
-    switch(funcion->tipo){
-        case POLINOMIO:
-            switch (funcion->cantidadvalores){
-                case 2:
-                    refrescoPantalla();
-                    printf("f'(X)= %g",funcion->valores[0]);
-                break;
-                case 3:
-                    refrescoPantalla();
-                    double valor=funcion->valores[0]*2;
-                    printf("f'(X)= %gx + %g",valor,funcion->valores[1]);
-                break;
-            }
-        break;
-        case EXPONENCIAL:
-            refrescoPantalla();
-            printf("f'(X)= (%g^x)*ln(%g)",funcion->valores[0],funcion->valores[0]);
-        break;
-        case LOGARITMO:
-            refrescoPantalla();
-            printf("f'(X)=1/(x*ln(%g))",funcion->valores[0]);
-        break;
-        case SENO:
-            refrescoPantalla();
-            printf("f'(X)=%g*cos(%gx)",funcion->valores[0],funcion->valores[0]);
-        break;
-        case COSENO:
-            refrescoPantalla();
-            printf("f'(X)=-%g*sin(%gx)",funcion->valores[0],funcion->valores[0]);
-        break;
-        case TANGENTE:
-            refrescoPantalla();
-            printf("f'(X)=%g*sec^2(%gx)",funcion->valores[0],funcion->valores[0]);
-        break;
-    }
-    printf("\n");
+    refrescoPantalla();
+    char *funcio=malloc(1024);
+    funcio[0]='\0';
+    convertirDerivadaATexto(funcion,funcio);
+    printf("f'(x) = %s\n", funcio);
+    free(funcio);
     return false;
 }
 bool calculoIntegral(Funcion *funcion){

@@ -11,7 +11,7 @@ void concatenarNumeros(char*buffer,char*resultado){
     }
 }
 bool concatenarNumeroConLogica(Funcion *funcion,char*resultado,int pos,bool x){
-    if (funcion == NULL && resultado == NULL) {
+    if (funcion == NULL || resultado == NULL) {
     return false;
     }
     if(funcion->valores[pos]==0){
@@ -47,15 +47,16 @@ bool concatenarNumeroConLogica(Funcion *funcion,char*resultado,int pos,bool x){
             return true;
         }
         if (funcion->valores[pos]<0){
+            strcat(resultado,"- ");
             num=num*-1;
         }
     }
-    if(funcion->valores[pos]==PI){
+    if(funcion->valores[pos]==PI||funcion->valores[pos]==-PI){
         strcat(resultado,"π");
         return true;
     }
     else{
-        if(funcion->valores[pos]==EULER){
+        if(funcion->valores[pos]==EULER||funcion->valores[pos]==-EULER){
             strcat(resultado,"e");
             return true;
         }
@@ -122,18 +123,8 @@ void convertirFuncionATexto(Funcion *funcion,char* resultado){
             }
         break;
         case EXPONENCIAL:
-            if (funcion->valores[0]==PI){
-                strcat(resultado,"πˣ");
-            }
-            else{
-                if (funcion->valores[0]==EULER){
-                    strcat(resultado,"eˣ");
-                }
-                else{
-                    sprintf(buffer, "%g", funcion->valores[0]);
-                    concatenarNumeros(buffer,resultado);
-                    strcat(resultado,"ˣ");
-                }
+            if (concatenarNumeroConLogica(funcion,resultado,0,true)){
+                strcat(resultado,"ˣ");
             }
         break;
         case LOGARITMO:
@@ -146,90 +137,137 @@ void convertirFuncionATexto(Funcion *funcion,char* resultado){
                 }
                 else{
                     char resul[128];
-                    convertirASubindice(funcion->valores[0],resul);
-                    strcat(resultado,"log");
-                    strcat(resultado,resul);
-                    strcat(resultado,"(x)");
+                    if (funcion->valores[0]!=0){
+                        convertirASubindice(funcion->valores[0],resul);
+                        strcat(resultado,"log");
+                        strcat(resultado,resul);
+                        strcat(resultado,"(x)");
+                    }
                 }
             }
         break;
         case SENO:
-            if (funcion->valores[0]==EULER){
-                    strcat(resultado,"sin(ex)");
-                }
-                else{
-                    if (funcion->valores[0]==PI){
-                    strcat(resultado,"sin(πx)");
-                    }
-                    else{
-                        if (funcion->valores[0]==-EULER){
-                        strcat(resultado,"sin(-ex)");
-                        }
-                        else{
-                            if (funcion->valores[0]==-PI){
-                            strcat(resultado,"sin(-πx)");
-                            }
-                            else{
-                                sprintf(buffer, "%g", funcion->valores[0]);
-                                strcat(resultado,"sin(");
-                                concatenarNumeros(buffer,resultado);
-                                strcat(resultado,"x)");
-                            }
-                        }
-                    }
-                }
+            strcat(resultado,"sin(");
+            if(concatenarNumeroConLogica(funcion,resultado,0,true)){
+                strcat(resultado,"x)");
+            }
+            else{
+                resultado[0]='\0';
+            }
         break;
         case COSENO:
-                if (funcion->valores[0]==EULER){
-                    strcat(resultado,"cos(ex)");
+                strcat(resultado,"cos(");
+                if(concatenarNumeroConLogica(funcion,resultado,0,true)){
+                    strcat(resultado,"x)");
                 }
                 else{
-                    if (funcion->valores[0]==PI){
-                    strcat(resultado,"cos(πx)");
-                    }
-                    else{
-                        if (funcion->valores[0]==-EULER){
-                        strcat(resultado,"cos(-ex)");
-                        }
-                        else{
-                            if (funcion->valores[0]==-PI){
-                            strcat(resultado,"cos(-πx)");
-                            }
-                            else{
-                                sprintf(buffer, "%g", funcion->valores[0]);
-                                strcat(resultado,"cos(");
-                                concatenarNumeros(buffer,resultado);
-                                strcat(resultado,"x)");
-                            }
-                        }
-                    }
+                    resultado[0]='\0';
                 }
         break;
         case TANGENTE:
-                if (funcion->valores[0]==EULER){
-                    strcat(resultado,"tan(ex)");
+                strcat(resultado,"tan(");
+                if(concatenarNumeroConLogica(funcion,resultado,0,true)){
+                    strcat(resultado,"x)");
                 }
                 else{
-                    if (funcion->valores[0]==PI){
-                    strcat(resultado,"tan(πx)");
+                    resultado[0]='\0';
+                }
+        break;
+    }
+}
+void convertirDerivadaATexto(Funcion *funcion,char *resultado){
+    char buffer[32];
+    resultado[0] = '\0';
+    switch (funcion->tipo){
+        case POLINOMIO:
+            switch (funcion->cantidadvalores){
+                case 2:
+                    concatenarNumeroConLogica(funcion,resultado,0,false);
+                break;
+                case 3:
+                    if(concatenarNumeroConLogica(funcion,resultado,0,true)){
+                        strcat(resultado,"x ");
                     }
-                    else{
-                        if (funcion->valores[0]==-EULER){
-                        strcat(resultado,"tan(-ex)");
+                    concatenarNumeroConLogica(funcion,resultado,1,true);
+                break;
+            }
+        break;
+        case EXPONENCIAL:
+            if (funcion->valores[0]==EULER){
+                strcat(resultado,"eˣ");
+            }
+            else{
+                if (funcion->valores[0]==-EULER){
+                    strcat(resultado,"-eˣ");
+                }
+                else{
+                    if (concatenarNumeroConLogica(funcion,resultado,0,true)){
+                        strcat(resultado,"ˣ");
+                        strcat(resultado," · ");
+                        strcat(resultado,"ln(");
+                        if (concatenarNumeroConLogica(funcion,resultado,0,true)){
+                            strcat(resultado,")");
                         }
                         else{
-                            if (funcion->valores[0]==-PI){
-                            strcat(resultado,"sin(-πx)");
-                            }
-                            else{
-                                sprintf(buffer, "%g", funcion->valores[0]);
-                                strcat(resultado,"tan(");
-                                concatenarNumeros(buffer,resultado);
-                                strcat(resultado,"x)");
-                            }
+                            resultado[0]='\0';
                         }
                     }
                 }
+            }
+        break;
+        case LOGARITMO:
+            if (funcion->valores[0]==EULER){
+                strcat(resultado,"¹/ₓ");
+            }
+            else{
+                char resul[128];
+                convertirASubindice(funcion->valores[0],resul);
+                strcat(resultado,"¹/(x · ln(");
+                if(concatenarNumeroConLogica(funcion,resultado,0,true)){
+                    strcat(resultado,"))");
+                }
+                else{
+                    resultado[0]='\0';
+                }
+                }
+        break;
+        case SENO:
+            if(concatenarNumeroConLogica(funcion,buffer,0,true)){
+                strcat(resultado,"cos(");
+                if(concatenarNumeroConLogica(funcion,resultado,0,true)){
+                    strcat(resultado,"x)");
+                }
+                else{
+                    resultado[0]='\0';
+                }
+            }
+        break;
+        case COSENO:
+            double numero=funcion->valores[0]*-1;
+            Funcion funcioninverso;
+            funcioninverso.cantidadvalores=funcion->cantidadvalores;
+            funcioninverso.tipo=funcion->tipo;
+            funcioninverso.valores=&numero;
+            if(concatenarNumeroConLogica(&funcioninverso,resultado,0,true)){
+                strcat(resultado,"sin(");
+                if(concatenarNumeroConLogica(funcion,resultado,0,true)){
+                    strcat(resultado,"x)");
+                }
+                else{
+                    resultado[0]='\0';
+                }
+            }
+        break;
+        case TANGENTE:
+            if(concatenarNumeroConLogica(funcion,buffer,0,true)){
+                strcat(resultado,"sec²(");
+                if(concatenarNumeroConLogica(funcion,resultado,0,true)){
+                    strcat(resultado,"x)");
+                }
+                else{
+                    resultado[0]='\0';
+                }
+            }
         break;
     }
 }

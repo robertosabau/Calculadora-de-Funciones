@@ -6,6 +6,8 @@
 void convertirASubindice(double numero,char* resultado);
 //Metodo para convertir una funcion en un string
 void convertirFuncionATexto(Funcion *funcion,char* resultado);
+//Metodo para convertir la derivada de una función en un string
+void convertirDerivadaATexto(Funcion *funcion,char *resultado);
 //Metodo para concatenar un numero en un lugar
 void concatenarNumeros(char*buffer,char*resultado);
 //Metodo para concatenar correctamente el caracter
