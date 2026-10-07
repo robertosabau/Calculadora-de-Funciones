@@ -105,49 +105,30 @@ bool calculoDerivada(Funcion *funcion){
     char *funcio=malloc(1024);
     funcio[0]='\0';
     convertirDerivadaATexto(funcion,funcio);
-    printf("f'(x) = %s\n", funcio);
+    if (funcio[0]!='\0'){
+        printf("f'(x) = %s\n", funcio);
+        free(funcio);
+        return false;
+    }
+    printf("No existe la derivada de la funcion\n");
     free(funcio);
-    return false;
+    return true;
 }
 bool calculoIntegral(Funcion *funcion){
     if (funcion==NULL){
         errorPuntero();
         return true;
     }
-    switch(funcion->tipo){
-        case POLINOMIO:
-            switch (funcion->cantidadvalores){
-                case 2:
-                    refrescoPantalla();
-                    printf("F(X)=((%gx^2)/2) + %gx + C",funcion->valores[0],funcion->valores[1]);
-                break;
-                case 3:
-                    refrescoPantalla();
-                    printf("F(X)=((%gx^3)/3) + ((%gx^2)/2) + %gx + C",funcion->valores[0],funcion->valores[1],funcion->valores[2]);
-                break;
-            }
-        break;
-        case EXPONENCIAL:
-            refrescoPantalla();
-            printf("F(X)=((%g^x)/ln(%g)) + C",funcion->valores[0],funcion->valores[0]);
-        break;
-        case LOGARITMO:
-            refrescoPantalla();
-            printf("F(X)=x*log_%g(x) - (x/ln(%g)) + C",funcion->valores[0],funcion->valores[0]);
-        break;
-        case SENO:
-            refrescoPantalla();
-            printf("F(X)=-(1/%g)*cos(%gx) + C",funcion->valores[0],funcion->valores[0]);
-        break;
-        case COSENO:
-            refrescoPantalla();
-            printf("F(X)=(1/%g)*sin(%gx) + C",funcion->valores[0],funcion->valores[0]);
-        break;
-        case TANGENTE:
-            refrescoPantalla();
-            printf("F(X)=-(1/%g)*ln|cos(%gx)| + C",funcion->valores[0],funcion->valores[0]);
-        break;
+    refrescoPantalla();
+    char *funcio=malloc(1024);
+    funcio[0]='\0';
+    convertirIntegralATexto(funcion,funcio);
+    if (funcio[0]!='\0'){
+        printf("∫f'(x) = %s\n", funcio);
+        free(funcio);
+        return false;
     }
-    printf("\n");
-    return false;
+    printf("No existe la integral de la funcion\n");
+    free(funcio);
+    return true;
 }
