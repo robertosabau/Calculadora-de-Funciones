@@ -10,6 +10,8 @@
 #include <locale.h>
 #include "funcion.h"
 #include "Conversor.h"
+#include "Lecturas.h"
+#include "Constantes.h"
 
 const char* version="1.2.1";
 
@@ -82,8 +84,7 @@ void tiposTrigonometrica(){
         printf("0. VOLVER ATRAS\n");
 }
 void opcionesAtributos(void){
-    refrescoPantalla();
-    printf("OPCIONES DE ATRIBUTOS:\n");
+    printf("OPCIONES:\n");
     printf("1. π\n");
     printf("2. e\n");
     printf("3. VALOR LIBRE\n");
@@ -153,18 +154,57 @@ void opcionesMenuFuncion(Funcion *funcion){
     printf("5. GUARDAR FUNCION\n");
     printf("0. REGRESAR AL MENU PRINCIPAL\n");
 }
+void introducirValorX(){
+    refrescoPantalla();
+    printf("INTRODUCE EL VALOR DE X PARA EVALUAR: \n");
+}
 double obtenerX(){
     double x;
-    refrescoPantalla();
-    printf("INTRODUCE EL VALOR DE X PARA EVALUAR: ");
-    while (scanf("%lf",&x)!=1){
-        refrescoPantalla();
-        printf("TIENE QUE INTRODUCIR UN NUMERO ENTERO\n");
-        printf("PULSE ENTER PARA CONTINUAR");
-        esperaEnter(true);
-        refrescoPantalla();
-        printf("INTRODUCE EL VALOR DE X PARA EVALUAR: ");
+    introducirValorX();
+    bool loop=true;
+    while (loop){
+        opcionesAtributos();
+        int seleccion=lecturaEntero(opcionesAtributos);
+        switch (seleccion){
+            case 1:
+                while (true){
+                    opcionesSigno();
+                    seleccion=lecturaEntero(opcionesSigno);
+                    switch (seleccion){
+                        case 1:
+                            return PI;
+                        break;
+                        case 2:
+                            return -PI;
+                        break;
+                    }
+                    opcionIncorrecta();
+                }
+            break;
+            case 2:
+                while (true){
+                    opcionesSigno();
+                    seleccion=lecturaEntero(opcionesSigno);
+                    switch (seleccion){
+                        case 1:
+                            return EULER;
+                        break;
+                        case 2:
+                            return -EULER;
+                        break;
+                    }
+                    opcionIncorrecta();
+                }
+            break;
+            case 3:
+                loop=false;
+            break;
+            default:
+                opcionIncorrecta();
+            break;
+        }
     }
+    x=lecturaEntero(introducirValorX);
     return x;
 }
 void mostrarResultadoCalculoX(double x,double resultado){

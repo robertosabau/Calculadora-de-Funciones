@@ -33,6 +33,8 @@
     void dibujarFuncion2(TipoFuncion tipo, int grado);
     //Mostrar opciones del menu de la función
     void opcionesMenuFuncion(Funcion *funcion);
+    //Metodo para pedir que introduzcan el valor de x que desean comprobar
+    void introducirValorX(void);
     //Metodo para obtener el valor de la x para calcularlo
     double obtenerX(void);
     //Mostrar el resultado que ha dado la x en la funcion

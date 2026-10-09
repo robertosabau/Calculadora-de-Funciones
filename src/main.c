@@ -60,9 +60,11 @@ double obtenerAtributoA(){
                     seleccion=lecturaEntero(opcionesSigno);
                     switch (seleccion){
                         case 1:
+                            refrescoPantalla();
                             return PI;
                         break;
                         case 2:
+                            refrescoPantalla();
                             return -PI;
                         break;
                     }
@@ -75,9 +77,11 @@ double obtenerAtributoA(){
                     seleccion=lecturaEntero(opcionesSigno);
                     switch (seleccion){
                         case 1:
+                            refrescoPantalla();
                             return EULER;
                         break;
                         case 2:
+                            refrescoPantalla();
                             return -EULER;
                         break;
                     }
@@ -109,9 +113,11 @@ double obtenerAtributoB(){
                     seleccion=lecturaEntero(opcionesSigno);
                     switch (seleccion){
                         case 1:
+                            refrescoPantalla();
                             return PI;
                         break;
                         case 2:
+                            refrescoPantalla();
                             return -PI;
                         break;
                     }
