@@ -124,7 +124,7 @@ bool calculoIntegral(Funcion *funcion){
     funcio[0]='\0';
     convertirIntegralATexto(funcion,funcio);
     if (funcio[0]!='\0'){
-        printf("∫f'(x) = %s\n", funcio);
+        printf("∫f(x) = %s\n", funcio);
         free(funcio);
         return false;
     }

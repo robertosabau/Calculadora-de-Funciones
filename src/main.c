@@ -8,6 +8,7 @@
 #include "Lecturas.h"
 #include "Ilustrar.h"
 #include "Gestor.h"
+#include "Constantes.h"
 
 //DECLARACIONES METODOS
 //Esperar un enter del jugador
@@ -48,16 +49,148 @@ void esperaEnter(bool limpiar){
     getchar();
 }
 double obtenerAtributoA(){
+    bool loop=true;
+    while (loop){
+        opcionesAtributos();
+        int seleccion=lecturaEntero(opcionesAtributos);
+        switch (seleccion){
+            case 1:
+                while (true){
+                    opcionesSigno();
+                    seleccion=lecturaEntero(opcionesSigno);
+                    switch (seleccion){
+                        case 1:
+                            return PI;
+                        break;
+                        case 2:
+                            return -PI;
+                        break;
+                    }
+                    opcionIncorrecta();
+                }
+            break;
+            case 2:
+                while (true){
+                    opcionesSigno();
+                    seleccion=lecturaEntero(opcionesSigno);
+                    switch (seleccion){
+                        case 1:
+                            return EULER;
+                        break;
+                        case 2:
+                            return -EULER;
+                        break;
+                    }
+                    opcionIncorrecta();
+                }
+            break;
+            case 3:
+                loop=false;
+            break;
+            default:
+                opcionIncorrecta();
+            break;
+        }
+    }
+    refrescoPantalla();
     buscarAtributoA();
     double numero=lecturaFlotante(buscarAtributoA);
     return numero;
 }
 double obtenerAtributoB(){
+    bool loop=true;
+    while (loop){
+        opcionesAtributos();
+        int seleccion=lecturaEntero(opcionesAtributos);
+        switch (seleccion){
+            case 1:
+                while (true){
+                    opcionesSigno();
+                    seleccion=lecturaEntero(opcionesSigno);
+                    switch (seleccion){
+                        case 1:
+                            return PI;
+                        break;
+                        case 2:
+                            return -PI;
+                        break;
+                    }
+                    opcionIncorrecta();
+                }
+            break;
+            case 2:
+                while (true){
+                    opcionesSigno();
+                    seleccion=lecturaEntero(opcionesSigno);
+                    switch (seleccion){
+                        case 1:
+                            return EULER;
+                        break;
+                        case 2:
+                            return -EULER;
+                        break;
+                    }
+                    opcionIncorrecta();
+                }
+            break;
+            case 3:
+                loop=false;
+            break;
+            default:
+                opcionIncorrecta();
+            break;
+        }
+    }
+    refrescoPantalla();
     buscarAtributoB();
     double numero=lecturaFlotante(buscarAtributoB);
     return numero;
 }
 double obtenerAtributoC(){
+    bool loop=true;
+    while (loop){
+        opcionesAtributos();
+        int seleccion=lecturaEntero(opcionesAtributos);
+        switch (seleccion){
+            case 1:
+                while (true){
+                    opcionesSigno();
+                    seleccion=lecturaEntero(opcionesSigno);
+                    switch (seleccion){
+                        case 1:
+                            return PI;
+                        break;
+                        case 2:
+                            return -PI;
+                        break;
+                    }
+                    opcionIncorrecta();
+                }
+            break;
+            case 2:
+                while (true){
+                    opcionesSigno();
+                    seleccion=lecturaEntero(opcionesSigno);
+                    switch (seleccion){
+                        case 1:
+                            return EULER;
+                        break;
+                        case 2:
+                            return -EULER;
+                        break;
+                    }
+                    opcionIncorrecta();
+                }
+            break;
+            case 3:
+                loop=false;
+            break;
+            default:
+                opcionIncorrecta();
+            break;
+        }
+    }
+    refrescoPantalla();
     buscarAtributoC();
     double numero=lecturaFlotante(buscarAtributoC);
     return numero;

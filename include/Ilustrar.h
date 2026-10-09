@@ -17,6 +17,10 @@
     void gradoPolinomioDisponible(void);
     //Mostrar los tipos de funciones trigonometricas disponibles
     void tiposTrigonometrica(void);
+    //Mostrar las opciones de atributos
+    void opcionesAtributos(void);
+    //Mostrar para selecionar entre valor positivo o negativo
+    void opcionesSigno(void);
     //Busqueda atributo A
     void buscarAtributoA(void);
     //Busqueda atributo B

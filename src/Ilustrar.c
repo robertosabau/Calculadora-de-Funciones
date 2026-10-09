@@ -81,6 +81,19 @@ void tiposTrigonometrica(){
         printf("3. TANGENTE\n");
         printf("0. VOLVER ATRAS\n");
 }
+void opcionesAtributos(void){
+    refrescoPantalla();
+    printf("OPCIONES DE ATRIBUTOS:\n");
+    printf("1. π\n");
+    printf("2. e\n");
+    printf("3. VALOR LIBRE\n");
+}
+void opcionesSigno(void){
+    refrescoPantalla();
+    printf("SELECCIONE EL SIGNO:\n");
+    printf("1. POSITIVO\n");
+    printf("2. NEGATIVO\n");
+}
 void buscarAtributoA(){
     printf("INTRODUCE EL ATRIBUTO a: ");
 }
@@ -156,7 +169,12 @@ double obtenerX(){
 }
 void mostrarResultadoCalculoX(double x,double resultado){
     refrescoPantalla();
-    printf("f( %g ) = %g \n",x,resultado);
+    if (isfinite(resultado)){
+        printf("f( %g ) = %g \n",x,resultado);
+    }
+    else{
+        printf("LA FUNCION NO ESTA DEFINIDA EN EL VALOR X INTRODUCIDO\n");
+    }
     printf("PULSE ENTER PARA CONTINUAR");
     esperaEnter(true);
 }
