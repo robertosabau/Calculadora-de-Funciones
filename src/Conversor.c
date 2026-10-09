@@ -66,6 +66,8 @@ bool concatenarNumeroConLogica(Funcion *funcion,char*resultado,int pos,bool x){
 }
 
 void convertirASubindice(double numero,char* resultado){
+    // Vaciamos la cadena de destino
+    resultado[0] = '\0';
     char buffer[32];
     // Convertimos el double a texto normal usando %g para omitir ceros finales
     snprintf(buffer, sizeof(buffer), "%g", numero);
@@ -97,12 +99,33 @@ void convertirASubindice(double numero,char* resultado){
     }
 }
 void convertirASuperindice(double numero,char* resultado){
+    // Vaciamos la cadena de destino
+    resultado[0] = '\0';
+    if (numero==PI){
+        strcat(resultado,"π");
+        return;
+    }
+    else{
+        if (numero==-PI){
+            strcat(resultado,"-π");
+            return;
+        }
+        else{
+            if (numero==EULER){
+                strcat(resultado,"e");
+                return;
+            }
+            else{
+                if (numero==-EULER){
+                    strcat(resultado,"-e");
+                    return;
+                }
+            }
+        }
+    }
     char buffer[32];
     // Convertimos el double a texto normal usando %g para omitir ceros finales
     snprintf(buffer, sizeof(buffer), "%g", numero);
-    
-    // Vaciamos la cadena de destino
-    resultado[0] = '\0';
     
     // Recorremos cada carácter del número normal y añadimos su byte octal correspondiente
     for (int i = 0; buffer[i] != '\0'; i++) {
@@ -253,7 +276,7 @@ void convertirDerivadaATexto(Funcion *funcion,char *resultado){
                 else{
                     resultado[0]='\0';
                 }
-                }
+            }
         break;
         case SENO:
             if(concatenarNumeroConLogica(funcion,resultado,0,true)){
@@ -385,8 +408,13 @@ void convertirIntegralATexto(Funcion *funcion,char *resultado){
             }
             else{
                 strcat(resultado,"x · log");
-                convertirASubindice(funcion->valores[0],buffer);
-                strcat(resultado,buffer);
+                if (funcion->valores[0]==PI){
+                    strcat(resultado,"_π");
+                }
+                else{
+                    convertirASubindice(funcion->valores[0],buffer);
+                    strcat(resultado,buffer);
+                }
                 strcat(resultado,"(x) - x/ln(");
                 if(concatenarNumeroConLogica(funcion,resultado,0,false)){
                     strcat(resultado,") + C");
