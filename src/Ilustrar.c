@@ -210,7 +210,27 @@ double obtenerX(){
 void mostrarResultadoCalculoX(double x,double resultado){
     refrescoPantalla();
     if (isfinite(resultado)){
-        printf("f( %g ) = %g \n",x,resultado);
+        if (x==PI){
+            printf("f( π ) = %g \n",resultado);
+        }
+        else{
+            if (x==-PI){
+                printf("f( -π ) = %g \n",resultado);
+            }
+            else{
+                if (x==EULER){
+                    printf("f( e ) = %g \n",resultado);
+                }
+                else{
+                    if (x==-EULER){
+                        printf("f( -e ) = %g \n",resultado);
+                    }   
+                    else{
+                        printf("f( %g ) = %g \n",x,resultado);
+                    }
+                }
+            }
+        }
     }
     else{
         printf("LA FUNCION NO ESTA DEFINIDA EN EL VALOR X INTRODUCIDO\n");
