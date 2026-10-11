@@ -7,7 +7,10 @@ typedef enum{
     LOGARITMO,
     COSENO,
     SENO,
-    TANGENTE
+    TANGENTE,
+    RADICAL,
+    FACTORIAL,
+    VALOR_ABSOLUTO
 } TipoFuncion;
 
 typedef struct{

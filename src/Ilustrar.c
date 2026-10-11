@@ -66,6 +66,9 @@ void menuTiposFuncion(){
     printf("2. EXPONENCIAL \n");
     printf("3. LOGARITMO \n");
     printf("4. TRIGONOMETRICA \n");
+    printf("5. RADICAL");
+    printf("6. FACTORIAL");
+    printf("7. VALOR ABSOLUTO");
     printf("0. REGRESAR AL MENU PRINCIPAL\n");
 }
 void gradoPolinomioDisponible(){
@@ -141,6 +144,9 @@ void dibujarFuncion2(TipoFuncion tipo, int grado){
         break;
         case TANGENTE:
             printf("TU FUNCION: tan(ax)\n");
+        break;
+        case RADICAL:
+            printf("TU FUNCION: ᵃ√x\n");
         break;
     }
 }

@@ -223,6 +223,18 @@ void convertirFuncionATexto(Funcion *funcion,char* resultado){
                     resultado[0]='\0';
                 }
         break;
+        case RADICAL:
+            char buffer[32];
+            convertirASuperindice(funcion->valores[0],buffer);
+            strcat(resultado,buffer);
+            strcat(resultado,"√x");
+        break;
+        case FACTORIAL:
+            strcat(resultado,"x!");
+        break;
+        case VALOR_ABSOLUTO:
+            strcat(resultado,"|x|");
+        break;
     }
 }
 void convertirDerivadaATexto(Funcion *funcion,char *resultado){
@@ -315,6 +327,15 @@ void convertirDerivadaATexto(Funcion *funcion,char *resultado){
                     resultado[0]='\0';
                 }
             }
+        break;
+        case RADICAL:
+            
+        break;
+        case FACTORIAL:
+            strcat(resultado,"x! · ψ(x+1)");
+        break;
+        case VALOR_ABSOLUTO:
+            strcat(resultado,"|x|/x");
         break;
     }
 }

@@ -38,6 +38,49 @@ double calculoValorX(double x,Funcion *funcion){
         case TANGENTE:
             resultado=tan(x*funcion->valores[0]);
         break;
+        case RADICAL:
+            if (x<0){
+                if (fmod(x,2)!=0&&fmod(x,1)==0){
+                    resultado = -pow(-x, 1.0/funcion->valores[0]);
+                }
+                else{
+                    resultado=INFINITY;
+                }
+            }
+            else{
+                resultado=pow(x, 1.0/funcion->valores[0]);
+            }
+        break;
+        case FACTORIAL:
+            if (fmod(funcion->valores[0],1)!=0){
+                if (funcion->valores[0]>0){
+                    resultado=1;
+                    for (int i=1;i<=funcion->valores[0];i++){
+                        resultado=resultado*i;
+                    }
+                }
+                else{
+                    if (funcion->valores[0]==0){
+                        resultado=1;
+                    }
+                    else{
+                        resultado=INFINITY;
+                    }
+                }
+            }
+            else{
+                resultado=INFINITY;
+            }
+        break;
+        case VALOR_ABSOLUTO:
+            if (funcion->valores[0]<0){
+                resultado=funcion->valores[0]*-1;
+            }
+            else{
+                resultado=funcion->valores[0];
+            }
+        break;
+
     }
     return resultado;
 }
