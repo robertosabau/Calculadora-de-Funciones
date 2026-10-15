@@ -215,24 +215,30 @@ double obtenerX(){
 }
 void mostrarResultadoCalculoX(double x,double resultado){
     refrescoPantalla();
+    char num[50];
+    num[0]='\0';
     if (isfinite(resultado)){
+        Funcion funcio;
+        funcio.cantidadvalores=1;
+        funcio.valores=&resultado;
+        concatenarNumeroConLogica(&funcio,num,0,false);
         if (x==PI){
-            printf("f( π ) = %g \n",resultado);
+            printf("f( π ) = %s \n",num);
         }
         else{
             if (x==-PI){
-                printf("f( -π ) = %g \n",resultado);
+                printf("f( -π ) = %s \n",num);
             }
             else{
                 if (x==EULER){
-                    printf("f( e ) = %g \n",resultado);
+                    printf("f( e ) = %s \n",num);
                 }
                 else{
                     if (x==-EULER){
-                        printf("f( -e ) = %g \n",resultado);
+                        printf("f( -e ) = %s \n",num);
                     }   
                     else{
-                        printf("f( %g ) = %g \n",x,resultado);
+                        printf("f( %g ) = %s \n",x,num);
                     }
                 }
             }
