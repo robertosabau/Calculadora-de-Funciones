@@ -209,6 +209,7 @@ double obtenerX(){
             break;
         }
     }
+    introducirValorX();
     x=lecturaEntero(introducirValorX);
     return x;
 }
