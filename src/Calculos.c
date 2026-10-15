@@ -39,46 +39,35 @@ double calculoValorX(double x,Funcion *funcion){
             resultado=tan(x*funcion->valores[0]);
         break;
         case RADICAL:
-            if (x<0){
-                if (fmod(x,2)!=0&&fmod(x,1)==0){
-                    resultado = -pow(-x, 1.0/funcion->valores[0]);
+            double indice = funcion->valores[0];
+            if (indice == 0) {
+                resultado = NAN;
+            }
+            else if (x < 0) {
+                if (isfinite(indice) &&indice >= 1 &&fmod(indice, 2.0) != 0.0 &&fmod(indice, 1.0) == 0.0) {
+                    resultado = -pow(-x, 1.0 / indice);
                 }
-                else{
-                    resultado=INFINITY;
+                else {
+                    resultado = NAN;
                 }
             }
-            else{
-                resultado=pow(x, 1.0/funcion->valores[0]);
+            else {
+                resultado = pow(x, 1.0 / indice);
             }
         break;
         case FACTORIAL:
-            if (fmod(funcion->valores[0],1)!=0){
-                if (funcion->valores[0]>0){
-                    resultado=1;
-                    for (int i=1;i<=funcion->valores[0];i++){
-                        resultado=resultado*i;
-                    }
-                }
-                else{
-                    if (funcion->valores[0]==0){
-                        resultado=1;
-                    }
-                    else{
-                        resultado=INFINITY;
-                    }
+            if (isfinite(x) && x >= 0 && fmod(x, 1.0) == 0.0) {
+                resultado = 1.0;
+                for (double i = 1; i <= x; i++) {
+                    resultado *= i;
                 }
             }
-            else{
-                resultado=INFINITY;
+            else {
+                resultado = NAN;
             }
         break;
         case VALOR_ABSOLUTO:
-            if (funcion->valores[0]<0){
-                resultado=funcion->valores[0]*-1;
-            }
-            else{
-                resultado=funcion->valores[0];
-            }
+            resultado = fabs(x);
         break;
 
     }
@@ -136,6 +125,24 @@ double* calculoValorIgual0(Funcion *funcion){
             static double resultado5;
             resultado5=0;
             return &resultado5;
+        break;
+        case RADICAL:{
+            static double resultado;
+            resultado=0;
+            return &resultado;
+        }
+        break;
+        case FACTORIAL:{
+            static double resultado;
+            resultado=-INFINITY;
+            return &resultado;
+        }
+        break;
+        case VALOR_ABSOLUTO:{
+            static double resultado;
+            resultado=0;
+            return &resultado;
+        }
         break;
     }
 }

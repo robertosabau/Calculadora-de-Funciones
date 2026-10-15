@@ -329,7 +329,23 @@ void convertirDerivadaATexto(Funcion *funcion,char *resultado){
             }
         break;
         case RADICAL:
-            
+            strcat(resultado,"1/");
+            if (concatenarNumeroConLogica(funcion,resultado,0,true)){
+                if (funcion->valores[0]!=1){
+                    strcat(resultado," · ");
+                    convertirASuperindice(funcion->valores[0],resultado);
+                    strcat(resultado,"√x");
+                    convertirASuperindice(funcion->valores[0]-1,resultado);
+                }
+                else{
+                    resultado[0]='\0';
+                    strcat(resultado,"1");
+                }
+
+            }
+            else{
+                resultado[0]='\0';
+            }
         break;
         case FACTORIAL:
             strcat(resultado,"x! · ψ(x+1)");

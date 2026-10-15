@@ -25,6 +25,8 @@ bool menuSeleccionFuncion(void);
 bool menuSeleccionTipoTrigonometrica(void);
 //Seleccion parametro trigonometrica
 double menuParametroTrigonometrica(int tipo);
+//Seleccion parametro funcion radical
+bool menuParametroRadical(void);
 //Selección parametro función exponencial
 bool menuParametroExponencial(void);
 //Seleccion parametro funcion logaritmo
@@ -203,6 +205,7 @@ double obtenerAtributoC(){
 }
 bool menuSeleccionFuncion(){
     while (true){
+        Funcion funcion;
         menuTiposFuncion();
         int seleccion=lecturaEntero(menuTiposFuncion);
         switch (seleccion){
@@ -225,6 +228,21 @@ bool menuSeleccionFuncion(){
                 if (menuSeleccionTipoTrigonometrica()){
                     return true;
                 }
+            break;
+            case 5:
+                if (menuParametroRadical()){
+                    return true;
+                }
+            break;
+            case 6:
+                funcion.cantidadvalores=0;
+                funcion.tipo=FACTORIAL;
+                return menuFuncion(&funcion);
+            break;
+            case 7:
+                funcion.cantidadvalores=0;
+                funcion.tipo=VALOR_ABSOLUTO;
+                return menuFuncion(&funcion);
             break;
             case 0:
             return false;
@@ -294,6 +312,16 @@ double menuParametroTrigonometrica(int tipo){
     }
     parametro=obtenerAtributoA();
     return parametro;
+}
+bool menuParametroRadical(){
+    refrescoPantalla();
+    dibujarFuncion2(RADICAL,0);
+    double a=obtenerAtributoA();
+    Funcion funcion;
+    funcion.cantidadvalores=1;
+    funcion.tipo=RADICAL;
+    funcion.valores=&a;
+    return menuFuncion(&funcion);
 }
 bool menuParametroExponencial(){
     refrescoPantalla();

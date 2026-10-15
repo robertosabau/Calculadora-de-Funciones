@@ -13,7 +13,7 @@
 #include "Lecturas.h"
 #include "Constantes.h"
 
-const char* version="1.2.1";
+const char* version="1.3.0";
 
 extern void esperaEnter(bool limpiar);
 
@@ -22,7 +22,6 @@ void configurarConsola(){
     SetConsoleOutputCP(65001);
     SetConsoleCP(65001);
     #endif
-    //setlocale(LC_ALL, "");
 }
 
 void refrescoPantalla(){
@@ -66,9 +65,9 @@ void menuTiposFuncion(){
     printf("2. EXPONENCIAL \n");
     printf("3. LOGARITMO \n");
     printf("4. TRIGONOMETRICA \n");
-    printf("5. RADICAL");
-    printf("6. FACTORIAL");
-    printf("7. VALOR ABSOLUTO");
+    printf("5. RADICAL\n");
+    printf("6. FACTORIAL\n");
+    printf("7. VALOR ABSOLUTO\n");
     printf("0. REGRESAR AL MENU PRINCIPAL\n");
 }
 void gradoPolinomioDisponible(){
@@ -273,6 +272,15 @@ bool mostrarResultadoObtenerIgual0(double* x,Funcion *funcion){
                 printf("f(%g)=0\n",x[0]);
             break;
             case TANGENTE:
+                printf("f(%g)=0\n",x[0]);
+            break;
+            case RADICAL:
+                printf("f(%g)=0\n",x[0]);
+            break;
+            case FACTORIAL:
+                printf("f(%g)=0\n",x[0]);
+            break;
+            case VALOR_ABSOLUTO:
                 printf("f(%g)=0\n",x[0]);
             break;
         }
