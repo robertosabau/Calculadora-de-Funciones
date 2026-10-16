@@ -210,7 +210,7 @@ double obtenerX(){
         }
     }
     introducirValorX();
-    x=lecturaEntero(introducirValorX);
+    x=lecturaFlotante(introducirValorX);
     return x;
 }
 void mostrarResultadoCalculoX(double x,double resultado){

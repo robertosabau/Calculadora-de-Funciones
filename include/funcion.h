@@ -19,4 +19,6 @@ typedef struct{
     double *valores;
 } Funcion;
 
+bool comprobacionTipoCorrecto(TipoFuncion tipo);
+
 #endif

@@ -153,6 +153,9 @@ bool calculoDerivada(Funcion *funcion){
     }
     refrescoPantalla();
     char *funcio=malloc(1024);
+    if (funcio==NULL){
+        return true;
+    }
     funcio[0]='\0';
     convertirDerivadaATexto(funcion,funcio);
     if (funcio[0]!='\0'){
@@ -171,6 +174,9 @@ bool calculoIntegral(Funcion *funcion){
     }
     refrescoPantalla();
     char *funcio=malloc(1024);
+    if (funcio==NULL){
+        return true;
+    }
     funcio[0]='\0';
     convertirIntegralATexto(funcion,funcio);
     if (funcio[0]!='\0'){
