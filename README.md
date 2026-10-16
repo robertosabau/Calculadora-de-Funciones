@@ -28,6 +28,9 @@ Ya en el **Menú de la función** podrías realizar **2 acciones principales**:
    * Seno: `sin(ax)`
    * Coseno: `cos(ax)`
    * Tangente: `tan (ax)`
+5. **Radical**: `ᵃ√x`
+6. **Factorial**: `x!`
+7. **Valor Absoluto**: `|x|`
   
 **AVISO:** Las funciones **Trigonométricas** estan en **radianes**.
 
