@@ -7,7 +7,10 @@ typedef enum{
     LOGARITMO,
     COSENO,
     SENO,
-    TANGENTE
+    TANGENTE,
+    RADICAL,
+    FACTORIAL,
+    VALOR_ABSOLUTO
 } TipoFuncion;
 
 typedef struct{
@@ -15,5 +18,7 @@ typedef struct{
     int cantidadvalores;
     double *valores;
 } Funcion;
+
+bool comprobacionTipoCorrecto(TipoFuncion tipo);
 
 #endif

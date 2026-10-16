@@ -10,8 +10,10 @@
 #include <locale.h>
 #include "funcion.h"
 #include "Conversor.h"
+#include "Lecturas.h"
+#include "Constantes.h"
 
-const char* version="1.2.1";
+const char* version="1.3.0";
 
 extern void esperaEnter(bool limpiar);
 
@@ -20,7 +22,6 @@ void configurarConsola(){
     SetConsoleOutputCP(65001);
     SetConsoleCP(65001);
     #endif
-    //setlocale(LC_ALL, "");
 }
 
 void refrescoPantalla(){
@@ -64,6 +65,9 @@ void menuTiposFuncion(){
     printf("2. EXPONENCIAL \n");
     printf("3. LOGARITMO \n");
     printf("4. TRIGONOMETRICA \n");
+    printf("5. RADICAL\n");
+    printf("6. FACTORIAL\n");
+    printf("7. VALOR ABSOLUTO\n");
     printf("0. REGRESAR AL MENU PRINCIPAL\n");
 }
 void gradoPolinomioDisponible(){
@@ -81,6 +85,18 @@ void tiposTrigonometrica(){
         printf("3. TANGENTE\n");
         printf("0. VOLVER ATRAS\n");
 }
+void opcionesAtributos(void){
+    printf("OPCIONES:\n");
+    printf("1. π\n");
+    printf("2. e\n");
+    printf("3. VALOR LIBRE\n");
+}
+void opcionesSigno(void){
+    refrescoPantalla();
+    printf("SELECCIONE EL SIGNO:\n");
+    printf("1. POSITIVO\n");
+    printf("2. NEGATIVO\n");
+}
 void buscarAtributoA(){
     printf("INTRODUCE EL ATRIBUTO a: ");
 }
@@ -95,35 +111,9 @@ bool dibujarFuncion(Funcion *funcion){
         errorPuntero();
         return true;
     }
-    switch (funcion->tipo){
-        case POLINOMIO:
-            switch (funcion->cantidadvalores){
-            case 2:
-                printf("TU FUNCION: %gx + %g\n",funcion->valores[0],funcion->valores[1]);
-                break;
-            case 3:
-                printf(u8"TU FUNCION: %gx² + %gx + %g\n",funcion->valores[0],funcion->valores[1],funcion->valores[2]);
-                break;
-            }
-        break;
-        case EXPONENCIAL:
-            printf("TU FUNCION: %gˣ\n",funcion->valores[0]);
-        break;
-        case LOGARITMO:
-            char subIndice[128];
-            convertirASubindice(funcion->valores[0],subIndice);
-            printf("TU FUNCION: log%s(x)\n",subIndice);
-        break;
-        case SENO:
-            printf("TU FUNCION: sin(%gx)\n",funcion->valores[0]);
-        break;
-        case COSENO:
-            printf("TU FUNCION: cos(%gx)\n",funcion->valores[0]);
-        break;
-        case TANGENTE:
-            printf("TU FUNCION: tan(%gx)\n",funcion->valores[0]);
-        break;
-    }
+    char funct[100];
+    convertirFuncionATexto(funcion,funct);
+    printf("f(x)= %s\n",funct);
     return false;
 }
 void dibujarFuncion2(TipoFuncion tipo, int grado){
@@ -154,6 +144,9 @@ void dibujarFuncion2(TipoFuncion tipo, int grado){
         case TANGENTE:
             printf("TU FUNCION: tan(ax)\n");
         break;
+        case RADICAL:
+            printf("TU FUNCION: ᵃ√x\n");
+        break;
     }
 }
 void opcionesMenuFuncion(Funcion *funcion){
@@ -166,23 +159,94 @@ void opcionesMenuFuncion(Funcion *funcion){
     printf("5. GUARDAR FUNCION\n");
     printf("0. REGRESAR AL MENU PRINCIPAL\n");
 }
+void introducirValorX(){
+    refrescoPantalla();
+    printf("INTRODUCE EL VALOR DE X PARA EVALUAR: \n");
+}
 double obtenerX(){
     double x;
-    refrescoPantalla();
-    printf("INTRODUCE EL VALOR DE X PARA EVALUAR: ");
-    while (scanf("%lf",&x)!=1){
-        refrescoPantalla();
-        printf("TIENE QUE INTRODUCIR UN NUMERO ENTERO\n");
-        printf("PULSE ENTER PARA CONTINUAR");
-        esperaEnter(true);
-        refrescoPantalla();
-        printf("INTRODUCE EL VALOR DE X PARA EVALUAR: ");
+    introducirValorX();
+    bool loop=true;
+    while (loop){
+        opcionesAtributos();
+        int seleccion=lecturaEntero(opcionesAtributos);
+        switch (seleccion){
+            case 1:
+                while (true){
+                    opcionesSigno();
+                    seleccion=lecturaEntero(opcionesSigno);
+                    switch (seleccion){
+                        case 1:
+                            return PI;
+                        break;
+                        case 2:
+                            return -PI;
+                        break;
+                    }
+                    opcionIncorrecta();
+                }
+            break;
+            case 2:
+                while (true){
+                    opcionesSigno();
+                    seleccion=lecturaEntero(opcionesSigno);
+                    switch (seleccion){
+                        case 1:
+                            return EULER;
+                        break;
+                        case 2:
+                            return -EULER;
+                        break;
+                    }
+                    opcionIncorrecta();
+                }
+            break;
+            case 3:
+                loop=false;
+            break;
+            default:
+                opcionIncorrecta();
+            break;
+        }
     }
+    introducirValorX();
+    x=lecturaFlotante(introducirValorX);
     return x;
 }
 void mostrarResultadoCalculoX(double x,double resultado){
     refrescoPantalla();
-    printf("f( %g ) = %g \n",x,resultado);
+    char num[50];
+    num[0]='\0';
+    if (isfinite(resultado)){
+        Funcion funcio;
+        funcio.cantidadvalores=1;
+        funcio.valores=&resultado;
+        concatenarNumeroConLogica(&funcio,num,0,false);
+        if (x==PI){
+            printf("f( π ) = %s \n",num);
+        }
+        else{
+            if (x==-PI){
+                printf("f( -π ) = %s \n",num);
+            }
+            else{
+                if (x==EULER){
+                    printf("f( e ) = %s \n",num);
+                }
+                else{
+                    if (x==-EULER){
+                        printf("f( -e ) = %s \n",num);
+                    }   
+                    else{
+                        printf("f( %g ) = %s \n",x,num);
+                    }
+                }
+            }
+        }
+    }
+    else{
+        printf("LA FUNCION NO ESTA DEFINIDA EN EL VALOR X INTRODUCIDO\n");
+    }
     printf("PULSE ENTER PARA CONTINUAR");
     esperaEnter(true);
 }
@@ -217,6 +281,15 @@ bool mostrarResultadoObtenerIgual0(double* x,Funcion *funcion){
             case TANGENTE:
                 printf("f(%g)=0\n",x[0]);
             break;
+            case RADICAL:
+                printf("f(%g)=0\n",x[0]);
+            break;
+            case FACTORIAL:
+                printf("f(%g)=0\n",x[0]);
+            break;
+            case VALOR_ABSOLUTO:
+                printf("f(%g)=0\n",x[0]);
+            break;
         }
         printf("PULSE ENTER PARA CONTINUAR");
     }
@@ -239,7 +312,7 @@ void errorCargar(){
 }
 void cargadoCorrecto(){
     refrescoPantalla();
-    printf("EL CARHADO HA SALIDO CORRECTAMENTE");
+    printf("EL CARGADO HA SALIDO CORRECTAMENTE");
     esperaEnter(false);
 }
 void menuGuardarFuncion(){

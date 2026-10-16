@@ -1,0 +1,2 @@
+const double PI=3.141592653589793;
+const double EULER=2.718281828459045;

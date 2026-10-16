@@ -8,6 +8,7 @@
 #include "Lecturas.h"
 #include "Ilustrar.h"
 #include "Gestor.h"
+#include "Constantes.h"
 
 //DECLARACIONES METODOS
 //Esperar un enter del jugador
@@ -24,6 +25,8 @@ bool menuSeleccionFuncion(void);
 bool menuSeleccionTipoTrigonometrica(void);
 //Seleccion parametro trigonometrica
 double menuParametroTrigonometrica(int tipo);
+//Seleccion parametro funcion radical
+bool menuParametroRadical(void);
 //Selección parametro función exponencial
 bool menuParametroExponencial(void);
 //Seleccion parametro funcion logaritmo
@@ -48,22 +51,161 @@ void esperaEnter(bool limpiar){
     getchar();
 }
 double obtenerAtributoA(){
+    bool loop=true;
+    while (loop){
+        opcionesAtributos();
+        int seleccion=lecturaEntero(opcionesAtributos);
+        switch (seleccion){
+            case 1:
+                while (true){
+                    opcionesSigno();
+                    seleccion=lecturaEntero(opcionesSigno);
+                    switch (seleccion){
+                        case 1:
+                            refrescoPantalla();
+                            return PI;
+                        break;
+                        case 2:
+                            refrescoPantalla();
+                            return -PI;
+                        break;
+                    }
+                    opcionIncorrecta();
+                }
+            break;
+            case 2:
+                while (true){
+                    opcionesSigno();
+                    seleccion=lecturaEntero(opcionesSigno);
+                    switch (seleccion){
+                        case 1:
+                            refrescoPantalla();
+                            return EULER;
+                        break;
+                        case 2:
+                            refrescoPantalla();
+                            return -EULER;
+                        break;
+                    }
+                    opcionIncorrecta();
+                }
+            break;
+            case 3:
+                loop=false;
+            break;
+            default:
+                opcionIncorrecta();
+            break;
+        }
+    }
+    refrescoPantalla();
     buscarAtributoA();
     double numero=lecturaFlotante(buscarAtributoA);
     return numero;
 }
 double obtenerAtributoB(){
+    bool loop=true;
+    while (loop){
+        opcionesAtributos();
+        int seleccion=lecturaEntero(opcionesAtributos);
+        switch (seleccion){
+            case 1:
+                while (true){
+                    opcionesSigno();
+                    seleccion=lecturaEntero(opcionesSigno);
+                    switch (seleccion){
+                        case 1:
+                            refrescoPantalla();
+                            return PI;
+                        break;
+                        case 2:
+                            refrescoPantalla();
+                            return -PI;
+                        break;
+                    }
+                    opcionIncorrecta();
+                }
+            break;
+            case 2:
+                while (true){
+                    opcionesSigno();
+                    seleccion=lecturaEntero(opcionesSigno);
+                    switch (seleccion){
+                        case 1:
+                            return EULER;
+                        break;
+                        case 2:
+                            return -EULER;
+                        break;
+                    }
+                    opcionIncorrecta();
+                }
+            break;
+            case 3:
+                loop=false;
+            break;
+            default:
+                opcionIncorrecta();
+            break;
+        }
+    }
+    refrescoPantalla();
     buscarAtributoB();
     double numero=lecturaFlotante(buscarAtributoB);
     return numero;
 }
 double obtenerAtributoC(){
+    bool loop=true;
+    while (loop){
+        opcionesAtributos();
+        int seleccion=lecturaEntero(opcionesAtributos);
+        switch (seleccion){
+            case 1:
+                while (true){
+                    opcionesSigno();
+                    seleccion=lecturaEntero(opcionesSigno);
+                    switch (seleccion){
+                        case 1:
+                            return PI;
+                        break;
+                        case 2:
+                            return -PI;
+                        break;
+                    }
+                    opcionIncorrecta();
+                }
+            break;
+            case 2:
+                while (true){
+                    opcionesSigno();
+                    seleccion=lecturaEntero(opcionesSigno);
+                    switch (seleccion){
+                        case 1:
+                            return EULER;
+                        break;
+                        case 2:
+                            return -EULER;
+                        break;
+                    }
+                    opcionIncorrecta();
+                }
+            break;
+            case 3:
+                loop=false;
+            break;
+            default:
+                opcionIncorrecta();
+            break;
+        }
+    }
+    refrescoPantalla();
     buscarAtributoC();
     double numero=lecturaFlotante(buscarAtributoC);
     return numero;
 }
 bool menuSeleccionFuncion(){
     while (true){
+        Funcion funcion;
         menuTiposFuncion();
         int seleccion=lecturaEntero(menuTiposFuncion);
         switch (seleccion){
@@ -86,6 +228,21 @@ bool menuSeleccionFuncion(){
                 if (menuSeleccionTipoTrigonometrica()){
                     return true;
                 }
+            break;
+            case 5:
+                if (menuParametroRadical()){
+                    return true;
+                }
+            break;
+            case 6:
+                funcion.cantidadvalores=0;
+                funcion.tipo=FACTORIAL;
+                return menuFuncion(&funcion);
+            break;
+            case 7:
+                funcion.cantidadvalores=0;
+                funcion.tipo=VALOR_ABSOLUTO;
+                return menuFuncion(&funcion);
             break;
             case 0:
             return false;
@@ -155,6 +312,25 @@ double menuParametroTrigonometrica(int tipo){
     }
     parametro=obtenerAtributoA();
     return parametro;
+}
+bool menuParametroRadical(){
+    refrescoPantalla();
+    dibujarFuncion2(RADICAL,0);
+    double a=0;
+    while (a==0){
+        a=obtenerAtributoA();
+        if (a==0){
+            refrescoPantalla();
+            printf("EL PARAMETRO NO ES CORRECTO");
+            esperaEnter(true);
+            refrescoPantalla();
+        }
+    }
+    Funcion funcion;
+    funcion.cantidadvalores=1;
+    funcion.tipo=RADICAL;
+    funcion.valores=&a;
+    return menuFuncion(&funcion);
 }
 bool menuParametroExponencial(){
     refrescoPantalla();

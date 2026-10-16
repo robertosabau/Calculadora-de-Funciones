@@ -1,8 +1,11 @@
 #include <math.h>
 #include <stdio.h>
+#include <stdlib.h>
 #include <float.h>
+#include <string.h>
 #include "funcion.h"
 #include "Ilustrar.h"
+#include "Conversor.h"
 
 double calculoValorX(double x,Funcion *funcion){
     if (funcion==NULL){
@@ -35,6 +38,38 @@ double calculoValorX(double x,Funcion *funcion){
         case TANGENTE:
             resultado=tan(x*funcion->valores[0]);
         break;
+        case RADICAL:
+            double indice = funcion->valores[0];
+            if (indice == 0) {
+                resultado = NAN;
+            }
+            else if (x < 0) {
+                if (isfinite(indice) &&indice >= 1 &&fmod(indice, 2.0) != 0.0 &&fmod(indice, 1.0) == 0.0) {
+                    resultado = -pow(-x, 1.0 / indice);
+                }
+                else {
+                    resultado = NAN;
+                }
+            }
+            else {
+                resultado = pow(x, 1.0 / indice);
+            }
+        break;
+        case FACTORIAL:
+            if (isfinite(x) && x >= 0 && fmod(x, 1.0) == 0.0) {
+                resultado = 1.0;
+                for (double i = 1; i <= x; i++) {
+                    resultado *= i;
+                }
+            }
+            else {
+                resultado = NAN;
+            }
+        break;
+        case VALOR_ABSOLUTO:
+            resultado = fabs(x);
+        break;
+
     }
     return resultado;
 }
@@ -61,7 +96,7 @@ double* calculoValorIgual0(Funcion *funcion){
                 }
                 else{
                     static double resultado;
-                    resultado=-funcion->valores[1]/funcion->valores[0];
+                    resultado=-funcion->valores[2]/funcion->valores[1];
                     return &resultado;
                 }
             break;
@@ -91,6 +126,24 @@ double* calculoValorIgual0(Funcion *funcion){
             resultado5=0;
             return &resultado5;
         break;
+        case RADICAL:{
+            static double resultado;
+            resultado=0;
+            return &resultado;
+        }
+        break;
+        case FACTORIAL:{
+            static double resultado;
+            resultado=-INFINITY;
+            return &resultado;
+        }
+        break;
+        case VALOR_ABSOLUTO:{
+            static double resultado;
+            resultado=0;
+            return &resultado;
+        }
+        break;
     }
 }
 bool calculoDerivada(Funcion *funcion){
@@ -98,83 +151,40 @@ bool calculoDerivada(Funcion *funcion){
         errorPuntero();
         return true;
     }
-    switch(funcion->tipo){
-        case POLINOMIO:
-            switch (funcion->cantidadvalores){
-                case 2:
-                    refrescoPantalla();
-                    printf("f'(X)= %g",funcion->valores[0]);
-                break;
-                case 3:
-                    refrescoPantalla();
-                    double valor=funcion->valores[0]*2;
-                    printf("f'(X)= %gx + %g",valor,funcion->valores[1]);
-                break;
-            }
-        break;
-        case EXPONENCIAL:
-            refrescoPantalla();
-            printf("f'(X)= (%g^x)*ln(%g)",funcion->valores[0],funcion->valores[0]);
-        break;
-        case LOGARITMO:
-            refrescoPantalla();
-            printf("f'(X)=1/(x*ln(%g))",funcion->valores[0]);
-        break;
-        case SENO:
-            refrescoPantalla();
-            printf("f'(X)=%g*cos(%gx)",funcion->valores[0],funcion->valores[0]);
-        break;
-        case COSENO:
-            refrescoPantalla();
-            printf("f'(X)=-%g*sin(%gx)",funcion->valores[0],funcion->valores[0]);
-        break;
-        case TANGENTE:
-            refrescoPantalla();
-            printf("f'(X)=%g*sec^2(%gx)",funcion->valores[0],funcion->valores[0]);
-        break;
+    refrescoPantalla();
+    char *funcio=malloc(1024);
+    if (funcio==NULL){
+        return true;
     }
-    printf("\n");
-    return false;
+    funcio[0]='\0';
+    convertirDerivadaATexto(funcion,funcio);
+    if (funcio[0]!='\0'){
+        printf("f'(x) = %s\n", funcio);
+        free(funcio);
+        return false;
+    }
+    printf("No existe la derivada de la funcion\n");
+    free(funcio);
+    return true;
 }
 bool calculoIntegral(Funcion *funcion){
     if (funcion==NULL){
         errorPuntero();
         return true;
     }
-    switch(funcion->tipo){
-        case POLINOMIO:
-            switch (funcion->cantidadvalores){
-                case 2:
-                    refrescoPantalla();
-                    printf("F(X)=((%gx^2)/2) + %gx + C",funcion->valores[0],funcion->valores[1]);
-                break;
-                case 3:
-                    refrescoPantalla();
-                    printf("F(X)=((%gx^3)/3) + ((%gx^2)/2) + %gx + C",funcion->valores[0],funcion->valores[1],funcion->valores[2]);
-                break;
-            }
-        break;
-        case EXPONENCIAL:
-            refrescoPantalla();
-            printf("F(X)=((%g^x)/ln(%g)) + C",funcion->valores[0],funcion->valores[0]);
-        break;
-        case LOGARITMO:
-            refrescoPantalla();
-            printf("F(X)=x*log_%g(x) - (x/ln(%g)) + C",funcion->valores[0],funcion->valores[0]);
-        break;
-        case SENO:
-            refrescoPantalla();
-            printf("F(X)=-(1/%g)*cos(%gx) + C",funcion->valores[0],funcion->valores[0]);
-        break;
-        case COSENO:
-            refrescoPantalla();
-            printf("F(X)=(1/%g)*sin(%gx) + C",funcion->valores[0],funcion->valores[0]);
-        break;
-        case TANGENTE:
-            refrescoPantalla();
-            printf("F(X)=-(1/%g)*ln|cos(%gx)| + C",funcion->valores[0],funcion->valores[0]);
-        break;
+    refrescoPantalla();
+    char *funcio=malloc(1024);
+    if (funcio==NULL){
+        return true;
     }
-    printf("\n");
+    funcio[0]='\0';
+    convertirIntegralATexto(funcion,funcio);
+    if (funcio[0]!='\0'){
+        printf("∫f(x) = %s\n", funcio);
+        free(funcio);
+        return false;
+    }
+    printf("No existe la integral de la funcion\n");
+    free(funcio);
     return false;
 }
