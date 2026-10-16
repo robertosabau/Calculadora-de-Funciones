@@ -316,7 +316,16 @@ double menuParametroTrigonometrica(int tipo){
 bool menuParametroRadical(){
     refrescoPantalla();
     dibujarFuncion2(RADICAL,0);
-    double a=obtenerAtributoA();
+    double a=0;
+    while (a==0){
+        a=obtenerAtributoA();
+        if (a==0){
+            refrescoPantalla();
+            printf("EL PARAMETRO NO ES CORRECTO");
+            esperaEnter(true);
+            refrescoPantalla();
+        }
+    }
     Funcion funcion;
     funcion.cantidadvalores=1;
     funcion.tipo=RADICAL;

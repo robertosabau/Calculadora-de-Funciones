@@ -225,9 +225,17 @@ void convertirFuncionATexto(Funcion *funcion,char* resultado){
         break;
         case RADICAL:
             char buffer[32];
-            convertirASuperindice(funcion->valores[0],buffer);
-            strcat(resultado,buffer);
-            strcat(resultado,"√x");
+            if (funcion->valores[0]!=1){
+                if (funcion->valores[0]!=2){
+                    convertirASuperindice(funcion->valores[0],buffer);
+                    strcat(resultado,buffer);
+                }
+                strcat(resultado,"√x");
+            }
+            else{
+                strcat(resultado,"x");
+            }
+            
         break;
         case FACTORIAL:
             strcat(resultado,"x!");
@@ -329,13 +337,21 @@ void convertirDerivadaATexto(Funcion *funcion,char *resultado){
             }
         break;
         case RADICAL:
+            char buffer[64];
             strcat(resultado,"1/");
             if (concatenarNumeroConLogica(funcion,resultado,0,true)){
                 if (funcion->valores[0]!=1){
-                    strcat(resultado," · ");
-                    convertirASuperindice(funcion->valores[0],resultado);
+                    strcat(resultado," · 1/(");
+                    if (funcion->valores[0]!=2){
+                        convertirASuperindice(funcion->valores[0],buffer);
+                        strcat(resultado,buffer);
+                    }
                     strcat(resultado,"√x");
-                    convertirASuperindice(funcion->valores[0]-1,resultado);
+                    if (funcion->valores[0]!=2){
+                        convertirASuperindice(funcion->valores[0]-1,buffer);
+                        strcat(resultado,buffer);
+                    }
+                    strcat(resultado,")");
                 }
                 else{
                     resultado[0]='\0';
@@ -538,6 +554,31 @@ void convertirIntegralATexto(Funcion *funcion,char *resultado){
             else{
                 resultado[0]='\0';
             }
+        break;
+        case RADICAL:
+            if (funcion->valores[0]!=-1){
+                convertirASuperindice(funcion->valores[0],buffer);
+                strcat(resultado,buffer);
+                strcat(resultado,"/");
+                convertirASubindice(funcion->valores[0]+1,buffer);
+                strcat(resultado,buffer);
+                strcat(resultado," · x^(");
+                convertirASuperindice(funcion->valores[0]+1,buffer);
+                strcat(resultado,buffer);
+                strcat(resultado,"/");
+                convertirASubindice(funcion->valores[0],buffer);
+                strcat(resultado,buffer);
+                strcat(resultado,") + C");
+            }
+            else{
+                strcat(resultado,"ln|x| + C");
+            }
+        break;
+        case FACTORIAL:
+            resultado[0]='\0';
+        break;
+        case VALOR_ABSOLUTO:
+            strcat(resultado,"x·|x|/2 + C");
         break;
     }
 }

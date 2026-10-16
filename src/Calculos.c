@@ -96,7 +96,7 @@ double* calculoValorIgual0(Funcion *funcion){
                 }
                 else{
                     static double resultado;
-                    resultado=-funcion->valores[1]/funcion->valores[0];
+                    resultado=-funcion->valores[2]/funcion->valores[1];
                     return &resultado;
                 }
             break;
@@ -180,5 +180,5 @@ bool calculoIntegral(Funcion *funcion){
     }
     printf("No existe la integral de la funcion\n");
     free(funcio);
-    return true;
+    return false;
 }
