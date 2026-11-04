@@ -13,7 +13,7 @@
 #include "Lecturas.h"
 #include "Constantes.h"
 
-const char* version="1.3.0";
+const char* version="1.3.1";
 
 extern void esperaEnter(bool limpiar);
 
