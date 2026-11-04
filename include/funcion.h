@@ -1,5 +1,6 @@
 #ifndef FUNCION_H
 #define FUNCION_H
+#include <stdbool.h>
 
 typedef enum{
     POLINOMIO,
